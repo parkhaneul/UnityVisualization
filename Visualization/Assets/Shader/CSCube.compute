@@ -1,0 +1,21 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSCube
+
+struct Particle
+{
+	float3 position;
+	float4 color;
+};
+
+RWStructuredBuffer<Particle> particleBuffer;
+//버퍼를 만들어놓고 옮겨서 사용. (버퍼를 옮길때마다 Drawcall발생)
+
+float deltaTime;
+
+[numthreads(256, 1, 1)] //GPU에서 몇개의 스레드를 사용하여 처리할 지 정함.
+
+						//버퍼 안에 있는 것들을 처리.
+void CSCube(uint3 id : SV_DispatchThreadID)
+{
+	particleBuffer[id.x].color += float4(0.01f, 0.01f, 0.01f, 0);
+}
