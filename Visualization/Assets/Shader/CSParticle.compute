@@ -56,5 +56,4 @@ void CSParticle(uint3 id : SV_DispatchThreadID)
 		particleBuffer[id.x].life = 4;
 		particleBuffer[id.x].velocity = float3(0, 0, 0);
 	}
-
 }
