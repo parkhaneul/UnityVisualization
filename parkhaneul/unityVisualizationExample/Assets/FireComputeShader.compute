@@ -1,0 +1,38 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel FireParticle
+
+struct Particle {
+	float3 position;
+	float life;
+};
+
+RWStructuredBuffer<Particle> computeBuffer;
+
+float deltaTime;
+uint rng_state;
+
+uint rand_xorshift()
+{
+	rng_state ^= (rng_state << 13);
+	rng_state ^= (rng_state >> 17);
+	rng_state ^= (rng_state << 5);
+	return rng_state;
+}
+
+[numthreads(256,1,1)]
+void FireParticle(uint3 id : SV_DispatchThreadID)
+{
+	computeBuffer[id.x].life -= deltaTIme;
+	computeBuffer[id.x].position.y += computeBuffer[id.x].life * deltaTime;
+	
+	if (computeBuffer[id.x].life < 0) {
+		rng_state = id.x;
+		float f0 = float(rand_xorshift()) * (1.0 / 4294967296.0) - 0.5;
+		float f1 = float(rand_xorshift()) * (1.0 / 4294967296.0) - 0.5;
+		float f2 = float(rand_xorshift()) * (1.0 / 4294967296.0) - 0.5;
+		float3 normalF3 = normalize(float3(f0, f1, f2)) * 0.8f;
+		normalF3 *= float(rand_xorshift()) * (1.0 / 4294967296.0);
+		particleBuffer[id.x].position = float3(normalF3.x + mousePosition.x, normalF3.y + mousePosition.y, normalF3.z + 3.0);
+		computeBuffer[id.x].life = 4;
+	}
+}

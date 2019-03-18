@@ -1,0 +1,14 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSParticle
+
+struct Particle {
+	float3 position;
+};
+
+RWStructuredBuffer<Particle> particleBuffer;
+
+[numthreads(256,1,1)]
+void CSParticle (uint3 id : SV_DispatchThreadID)
+{
+	particleBuffer[id.x].position = particleBuffer[id.x].position * 1000;
+}
