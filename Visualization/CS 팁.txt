@@ -1,9 +1,0 @@
-Compute파일 (C#코드, 오류체크x)
-- #pragma kernel CSParticle
-- struct
-- RWStructureBuffer<구조체(particle정보)>선언
-- MyCSParticle(unit3 id : SV_DispatchThreadID) : Buffer에 있는 요소들을 제어.
-
-Run파일(C#)
-- struct
-- Material과 ComputeShader 추가
