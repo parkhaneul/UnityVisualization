@@ -21,6 +21,7 @@
 
 		struct Particle {
 			float3 position;
+			float3 direction;
 			float life;
 		};
 
@@ -38,7 +39,7 @@
 			PS_INPUT o = (PS_INPUT)0;
 
 			float life = computeBuffer[instance_id].life;
-			float4 color = _Main * (1 - life * 0.25) + _Sub * (life * 0.25);
+			float4 color = _Sub * (1 - life * 0.3) + _Main * (life * 0.3);
 			o.color = float4(color.x, color.y, color.z, life * 0.25);
 			o.position = UnityObjectToClipPos(float4(computeBuffer[instance_id].position, 1.0f));
 

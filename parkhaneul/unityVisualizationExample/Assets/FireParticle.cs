@@ -11,14 +11,17 @@ public class FireParticle : MonoBehaviour {
     public Material material;
 
     public int maxParticle;
-    public float volumeValue;
-    private Vector2 cursorPos;
+    public float life = 0;
+    public float random = 0;
+    public Vector3 volume = new Vector3(0,0,0);
+    public Vector3 direction = new Vector3(0,0,0);
+    public Vector3 position = new Vector3(0, 0, 0);
 
     struct Particle {
         public Vector3 position;
+        public Vector3 direction;
         public float life;
     };
-
 
 	// Use this for initialization
 	void Start () {
@@ -30,18 +33,19 @@ public class FireParticle : MonoBehaviour {
         Particle[] particleArray = new Particle[maxParticle];
 
         for (int i = 0; i < maxParticle; i++){
-            float x = Random.value * volumeValue;
-            float y = Random.value * volumeValue;
-            float z = Random.value * volumeValue;
+            float x = position.x;
+            float y = position.y;
+            float z = position.z;
             Vector3 xyz = new Vector3(x, y, z);
             xyz.Normalize();
             xyz *= Random.value;
 
             particleArray[i].position = xyz;
-            particleArray[i].life = Random.value * volumeValue * 0.1f;
+            particleArray[i].direction = direction;
+            particleArray[i].life = 2 * life;
         }
 
-        computeBuffer = new ComputeBuffer(maxParticle, 16);
+        computeBuffer = new ComputeBuffer(maxParticle, 28);
         computeBuffer.SetData(particleArray);
         mComputeShaderKernelID = computeShader.FindKernel("FireParticle");
         computeShader.SetBuffer(mComputeShaderKernelID, "computeBuffer", computeBuffer);
@@ -62,9 +66,12 @@ public class FireParticle : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        float[] mousePosition2D = { cursorPos.x, cursorPos.y };
-
         computeShader.SetFloat("deltaTime", Time.deltaTime);
-        computeShader.Dispatch(mComputeShaderKernelID, 256, 1, 1);
+        computeShader.SetFloats("direction", direction.x,direction.y,direction.z);
+        computeShader.SetFloats("volume",volume.x,volume.y,volume.z);
+        computeShader.SetFloats("position", position.x, position.y, position.z);
+        computeShader.SetFloat("random", random);
+        computeShader.SetFloat("life", life);
+        computeShader.Dispatch(mComputeShaderKernelID, 512, 1, 1);
 	}
 }
