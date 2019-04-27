@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2129445971}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999985
+  m_Size: 0.99999815
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1034,9 +1034,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffd418b1df224d8591ea6c8fb012b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  degX: 0
-  degY: 0
-  distance: 10
+  Target: {fileID: 1799532839}
+  CamSpeed: 0.01
+  zoomSpeed: 0.1
 --- !u!1 &657372518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,7 +1677,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 299099212}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999887
+  m_Size: 0.99999857
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3121,7 +3121,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 100.00002, y: 0.0000346888}
+  m_AnchoredPosition: {x: 100.000015, y: 0.0000011267105}
   m_SizeDelta: {x: -363, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2137010898

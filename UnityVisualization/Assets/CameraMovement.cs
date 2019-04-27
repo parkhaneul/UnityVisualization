@@ -3,7 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
-{   
+{
+	public GameObject Target;
+	public float CamSpeed;
+	public float zoomSpeed;
+	private float camDistanceToTarget;
+	private Vector3 lastPosition;
+
+	private void Start()
+	{
+		camDistanceToTarget = Vector3.Distance(this.transform.position, Target.transform.position);
+	}
+
+	private void Update()
+	{
+		if (Input.GetKey(KeyCode.LeftAlt))
+		{
+			if (Input.GetAxis("Mouse ScrollWheel") < 0)
+			{
+				if (camDistanceToTarget < 15)
+				{
+					camDistanceToTarget += zoomSpeed;
+					Vector3 dir = (this.transform.position - Target.transform.position).normalized;
+					transform.position = dir * camDistanceToTarget;
+				}
+
+			}
+			if (Input.GetAxis("Mouse ScrollWheel") > 0)
+			{
+				if (camDistanceToTarget > 5)
+				{
+					camDistanceToTarget -= zoomSpeed;
+					Vector3 dir = (this.transform.position - Target.transform.position).normalized;
+					transform.position = dir * camDistanceToTarget;
+				}
+			}
+
+			if (Input.GetMouseButtonDown(0))
+			{
+				lastPosition = Input.mousePosition;
+			}
+			else if (Input.GetMouseButton(0))
+			{
+				Vector3 deltaMousePosition = Input.mousePosition - lastPosition;
+				Vector3 temp = new Vector3(0,0,0);
+				temp = this.transform.position + (deltaMousePosition.x * -this.transform.right
+					+ deltaMousePosition.y * -this.transform.up) * CamSpeed;
+
+				Vector3 dir = (temp - Target.transform.position).normalized;
+
+				transform.position = dir * camDistanceToTarget;
+
+				transform.LookAt(Target.transform.position);
+				lastPosition = Input.mousePosition;
+			}
+		}
+	}
+	
+
+
+
+	/*
     private Vector3 lastPosition;
     public int distance = 0;
      // Update is called once per frame
@@ -23,4 +83,5 @@ public class CameraMovement : MonoBehaviour
             }
         }
     }
+	*/
 }
