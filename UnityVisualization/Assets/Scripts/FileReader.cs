@@ -5,19 +5,19 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class FileReader : MonoBehaviour {
-    static string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
-    static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
-    static char[] TRIM_CHARS = { '\"' };
+    public static string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
+    public static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
+    public static char[] TRIM_CHARS = { '\"' };
 
-	public List<Data> data = new List<Data>();
-
-
+    static Header header;
+    static MetaData meta;
+    static Data[] dataList;
 
 	private string filePath = "Assets/Resources/";
     //경로에 파일 넣으시고 파일 이름 .csv dataName에 명시해주세요.
     private string dataName = "data.csv";
 
-    void Start()
+    void Awake()
     {
 		try
 		{
@@ -25,11 +25,12 @@ public class FileReader : MonoBehaviour {
 
 			var lines = Regex.Split(file.ReadToEnd(), LINE_SPLIT_RE);
 
-			MetaData.MetaDataInit(lines[0]);
-			for(int i = 1; i < lines.Length; i++)
+            header = new Header(lines[0]);
+            dataList = new Data[lines.Length - 1];
+            meta = new MetaData(lines[1]);
+            for (int i = 1; i < lines.Length; i++)
 			{
-				if(lines[i] !=null)
-					data.Add(new Data(lines[i]));
+                dataList[i-1] = new Data(lines[i]);
 			}
 			file.Close();
 		}

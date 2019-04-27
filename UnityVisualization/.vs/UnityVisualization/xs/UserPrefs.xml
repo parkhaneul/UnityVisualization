@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{81A5EB19-1B89-638B-3EE8-1BFBD491B973}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/AxisRepositioner.cs">
+    <Files>
+      <File FileName="Assets/Scripts/MetaData.cs" Line="20" Column="22" />
+      <File FileName="Assets/Scripts/FileReader.cs" Line="9" Column="20" />
+      <File FileName="Assets/Scripts/Data.cs" Line="46" Column="29" />
+      <File FileName="Assets/Scripts/SetDropDown.cs" Line="24" Column="36" />
+      <File FileName="Assets/Scripts/AxisSetting.cs" Line="22" Column="39" />
+      <File FileName="Assets/Scripts/propertySetting.cs" Line="29" Column="18" />
+      <File FileName="Assets/Scripts/vectorSetting.cs" Line="1" Column="1" />
+      <File FileName="Assets/Resources/data.csv" Line="7" Column="1" />
+      <File FileName="Assets/CameraMovement.cs" Line="22" Column="47" />
+      <File FileName="Assets/AxisRepositioner.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
