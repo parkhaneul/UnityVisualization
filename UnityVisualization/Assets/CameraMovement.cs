@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-	public GameObject Target;
-	public float CamSpeed;
+    //public GameObject Target;
+    public Vector3 Target = Vector3.zero;
+    public float CamSpeed;
 	public float zoomSpeed;
 	private float camDistanceToTarget;
 	private Vector3 lastPosition;
 
 	private void Start()
 	{
-		camDistanceToTarget = Vector3.Distance(this.transform.position, Target.transform.position);
+		camDistanceToTarget = Vector3.Distance(this.transform.position, Target/*.transform.position*/);
 	}
 
 	private void Update()
@@ -24,7 +25,7 @@ public class CameraMovement : MonoBehaviour
 				if (camDistanceToTarget < 15)
 				{
 					camDistanceToTarget += zoomSpeed;
-					Vector3 dir = (this.transform.position - Target.transform.position).normalized;
+					Vector3 dir = (this.transform.position - Target/*.transform.position*/).normalized;
 					transform.position = dir * camDistanceToTarget;
 				}
 
@@ -34,7 +35,7 @@ public class CameraMovement : MonoBehaviour
 				if (camDistanceToTarget > 5)
 				{
 					camDistanceToTarget -= zoomSpeed;
-					Vector3 dir = (this.transform.position - Target.transform.position).normalized;
+					Vector3 dir = (this.transform.position - Target/*.transform.position*/).normalized;
 					transform.position = dir * camDistanceToTarget;
 				}
 			}
@@ -50,11 +51,11 @@ public class CameraMovement : MonoBehaviour
 				temp = this.transform.position + (deltaMousePosition.x * -this.transform.right
 					+ deltaMousePosition.y * -this.transform.up) * CamSpeed;
 
-				Vector3 dir = (temp - Target.transform.position).normalized;
+				Vector3 dir = (temp - Target/*.transform.position*/).normalized;
 
 				transform.position = dir * camDistanceToTarget;
 
-				transform.LookAt(Target.transform.position);
+				transform.LookAt(Target/*.transform.position*/);
 				lastPosition = Input.mousePosition;
 			}
 		}
