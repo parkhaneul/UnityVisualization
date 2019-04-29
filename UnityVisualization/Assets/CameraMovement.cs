@@ -16,7 +16,7 @@ public class CameraMovement : MonoBehaviour
 		camDistanceToTarget = Vector3.Distance(this.transform.position, Target/*.transform.position*/);
 	}
 
-	private void Update()
+	private void LateUpdate()
 	{
 		if (Input.GetKey(KeyCode.LeftAlt))
 		{
