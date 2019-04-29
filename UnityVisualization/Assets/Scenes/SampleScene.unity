@@ -551,7 +551,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2129445971}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -986,8 +986,8 @@ Camera:
     serializedVersion: 2
     x: 0.3
     y: 0
-    width: 0.7
-    height: 1
+    width: 1600
+    height: 900
   near clip plane: 0.3
   far clip plane: 2000
   field of view: 100
@@ -1001,7 +1001,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
@@ -1754,7 +1754,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 299099212}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.21671018
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3198,7 +3198,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 99.99999, y: -0.0000074654818}
+  m_AnchoredPosition: {x: 103.781265, y: 4.3132324}
   m_SizeDelta: {x: -363, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2137010898

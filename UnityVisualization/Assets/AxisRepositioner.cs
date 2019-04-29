@@ -20,7 +20,9 @@ public class AxisRepositioner : MonoBehaviour
     {
         RaycastHit hit;
         RaycastHit[] hits;
-        ray = view.ScreenPointToRay(Input.mousePosition);
+        Vector3 mpNormalized = new Vector3(Input.mousePosition.x / Screen.width, Input.mousePosition.y / Screen.height, 1);
+        ray = view.ViewportPointToRay(mpNormalized);
+        Debug.Log(ray.origin);
         int layerMask_sphere = 1 << 9;
         int layerMask_axis = 1 << 10;
 
@@ -29,7 +31,6 @@ public class AxisRepositioner : MonoBehaviour
             if(Vector3.Dot(view.transform.forward,transform.position) >= 0)
             {
                 Physics.Raycast(ray.origin + view.transform.forward * 100f, (-view.transform.forward - ray.direction.normalized * - 3/11) * 1000f,out hit, Mathf.Infinity, layerMask_sphere);
-                //Debug.Log(hit.point);
             }else
             {
                 Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask_sphere);
@@ -56,6 +57,6 @@ public class AxisRepositioner : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Debug.DrawRay(ray.origin + view.transform.forward * 100f, (-view.transform.forward - ray.direction.normalized * -3/11)* 1000f, Color.red);
+        Debug.DrawRay(ray.origin + view.transform.forward * 100f, -view.transform.forward * 100f, Color.red);
     }
 }
