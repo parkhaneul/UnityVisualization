@@ -28,7 +28,7 @@ public class AxisRepositioner : MonoBehaviour
         {
             if(Vector3.Dot(view.transform.forward,transform.position) >= 0)
             {
-                Physics.Raycast(ray.origin + view.transform.forward * 100f, (-view.transform.forward - ray.direction.normalized * - 3/11) * 1000f,out hit, Mathf.Infinity, layerMask_sphere);
+                Physics.Raycast(ray.origin + ray.direction * 100f, -ray.direction,out hit, Mathf.Infinity, layerMask_sphere);
             }else
             {
                 Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask_sphere);
@@ -58,6 +58,6 @@ public class AxisRepositioner : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Debug.DrawRay(ray.origin + view.transform.forward * 100f, -view.transform.forward * 100f, Color.red);
+        Debug.DrawRay(ray.origin + ray.direction * 100f, -ray.direction * 100f, Color.red);
     }
 }

@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{81A5EB19-1B89-638B-3EE8-1BFBD491B973}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/AxisRepositioner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AxisRepositioner.cs">
     <Files>
       <File FileName="Assets/Scripts/MetaData.cs" Line="20" Column="22" />
       <File FileName="Assets/Scripts/FileReader.cs" Line="31" Column="51" />
@@ -7,11 +7,10 @@
       <File FileName="Assets/Scripts/SetDropDown.cs" Line="24" Column="36" />
       <File FileName="Assets/Scripts/AxisSetting.cs" Line="22" Column="39" />
       <File FileName="Assets/Scripts/propertySetting.cs" Line="29" Column="18" />
-      <File FileName="Assets/Scripts/vectorSetting.cs" Line="1" Column="1" />
-      <File FileName="Assets/CameraMovement.cs" Line="19" Column="19" />
-      <File FileName="Assets/AxisRepositioner.cs" Line="23" Column="121" />
+      <File FileName="Assets/Scripts/ColorSetting.cs" Line="10" Column="21" />
+      <File FileName="Assets/Scripts/CameraMovement.cs" Line="19" Column="19" />
+      <File FileName="Assets/Scripts/AxisRepositioner.cs" Line="61" Column="57" />
       <File FileName="Assets/Resources/data.csv" Line="2" Column="29" />
-      <File FileName="Assets/NewSurfaceShader.shader" Line="6" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
