@@ -58,6 +58,6 @@ public class AxisRepositioner : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Debug.DrawRay(ray.origin + ray.direction * 100f, -ray.direction * 100f, Color.red);
+        //Debug.DrawRay(ray.origin + ray.direction * 100f, -ray.direction * 100f, Color.red);
     }
 }
