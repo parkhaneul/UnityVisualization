@@ -20,9 +20,7 @@ public class AxisRepositioner : MonoBehaviour
     {
         RaycastHit hit;
         RaycastHit[] hits;
-        Vector3 mpNormalized = new Vector3(Input.mousePosition.x / Screen.width, Input.mousePosition.y / Screen.height, 1);
-        ray = view.ViewportPointToRay(mpNormalized);
-        Debug.Log(ray.origin);
+        ray = view.ScreenPointToRay(Input.mousePosition);
         int layerMask_sphere = 1 << 9;
         int layerMask_axis = 1 << 10;
 
@@ -35,8 +33,11 @@ public class AxisRepositioner : MonoBehaviour
             {
                 Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask_sphere);
             }
-            transform.position = hit.point;
-            myRenderer.SetPosition(1, transform.position);
+            if(hit.point != Vector3.zero)
+            {
+                transform.position = hit.point;
+                myRenderer.SetPosition(1, transform.position);
+            }
         }
         else
         {
