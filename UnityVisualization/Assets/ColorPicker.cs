@@ -8,6 +8,7 @@ public class ColorPicker : MonoBehaviour
     public float inCircleRadius;
     [Range(3, 60)]
     public int degree = 3;
+    public Material material;
 
     void Start()
     {
@@ -26,6 +27,13 @@ public class ColorPicker : MonoBehaviour
         }
         mesh.vertices = vertices;
         mesh.triangles = linkCircles(vertices);
+        Vector2[] uvs = new Vector2[vertices.Length];
+        for (int i = 0; i < uvs.Length; i++)
+        {
+            uvs[i] = new Vector2(vertices[i].x, vertices[i].y);
+        }
+        mesh.uv = uvs;
+        GetComponent<MeshRenderer>().material = material;
         mesh.RecalculateNormals();
     }
 

@@ -552,7 +552,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2129445971}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.999994
+  m_Size: 0.9999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1157,8 +1157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 20
-  inCircleRadius: 10
-  degree: 10
+  inCircleRadius: 16
+  degree: 30
+  material: {fileID: 2100000, guid: 85e98a8132e324888a9cb496f9dad97f, type: 2}
 --- !u!4 &702257192
 Transform:
   m_ObjectHideFlags: 0
@@ -1789,7 +1790,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 299099212}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999535
+  m_Size: 0.9999995
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3323,7 +3324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 99.999985, y: 0.000021223483}
+  m_AnchoredPosition: {x: 100.000015, y: 0.00002191731}
   m_SizeDelta: {x: -363, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2137010898
