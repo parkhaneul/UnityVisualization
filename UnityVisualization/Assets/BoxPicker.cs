@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorPicker : MonoBehaviour
+public class BoxPicker : MonoBehaviour
 {
     public float radius;
     public float inCircleRadius;
-    public ColorWheel wheel;
+    public GameObject gradationBox;
     public GameObject picker;
     public Camera uiCamera;
     private int degree = 20;
     private bool isClicked = false;
     public Material material;
-    public Material gradationMaterial;
-
-    private float angle = 0;
+    public ColorPicker ColorPicker;
     Ray ray;
 
+    // Start is called before the first frame update
     void Start()
     {
         gameObject.AddComponent<MeshFilter>();
@@ -52,17 +51,18 @@ public class ColorPicker : MonoBehaviour
         if (isClicked)
         {
             var vector = uiCamera.ScreenToWorldPoint(Input.mousePosition) - picker.transform.position;
-            angle = Mathf.Atan2(vector.x, vector.y);
-            float x = Mathf.Sin(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
-            float y = Mathf.Cos(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
-            this.transform.localPosition = new Vector3(x,y,-2);
-            gradationMaterial.color = getColor();
+            var xScale = gradationBox.transform.lossyScale.x;
+            var yScale = gradationBox.transform.lossyScale.z;
+            float x = Mathf.Clamp(vector.x, -xScale * 4, xScale * 4);
+            float y = Mathf.Clamp(vector.y, -yScale * 4, yScale * 4);
+            this.transform.position = new Vector3(x, y, -2);
+            getColor((x + 16)/32,(y + 16)/32);
         }
         else
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if(Physics.Raycast(ray, out hit) && hit.transform.tag == "Picker")
+                if (Physics.Raycast(ray, out hit) && hit.transform.tag == "BoxPicker")
                 {
                     isClicked = true;
                 }
@@ -100,9 +100,13 @@ public class ColorPicker : MonoBehaviour
         return temp;
     }
 
-    public Color getColor()
+    Color getColor(float x, float y)
     {
-        var c = Color.HSVToRGB(((angle + 2 * Mathf.PI) % (2 * Mathf.PI)) * Mathf.Rad2Deg / 360, 1, 1,true);
+        var color = ColorPicker.getColor();
+        float h,s,v;
+        Color.RGBToHSV(color, out h,out s,out v);
+        var c = Color.HSVToRGB(h, x, y, true);
+        Debug.Log(c);
         return c;
     }
 }

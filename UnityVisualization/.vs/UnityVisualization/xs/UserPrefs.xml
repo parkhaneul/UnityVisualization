@@ -1,15 +1,17 @@
 ﻿<Properties StartupConfiguration="{81A5EB19-1B89-638B-3EE8-1BFBD491B973}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CameraMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/BoxPicker.cs">
     <Files>
-      <File FileName="Assets/Scripts/ColorSetting.cs" Line="10" Column="21" />
+      <File FileName="Assets/Scripts/ColorSetting.cs" Line="9" Column="24" />
       <File FileName="Assets/Scripts/CameraMovement.cs" Line="19" Column="19" />
-      <File FileName="Assets/Scripts/AxisRepositioner.cs" Line="61" Column="11" />
+      <File FileName="Assets/Scripts/AxisRepositioner.cs" Line="11" Column="5" />
       <File FileName="Assets/Resources/data.csv" Line="1" Column="1" />
-      <File FileName="Assets/ColorWheel.cs" Line="1" Column="1" />
-      <File FileName="Assets/vColorShader.shader" Line="42" Column="17" />
+      <File FileName="Assets/ColorWheel.cs" Line="43" Column="9" />
+      <File FileName="Assets/vColorShader.shader" Line="45" Column="40" />
       <File FileName="Assets/GradationBox.cs" Line="19" Column="38" />
       <File FileName="Assets/colorGradationShader.shader" Line="23" Column="32" />
-      <File FileName="Assets/ColorPicker.cs" Line="43" Column="17" />
+      <File FileName="Assets/ColorPicker.cs" Line="45" Column="18" />
+      <File FileName="Assets/BoxPicker.cs" Line="58" Column="1" />
+      <File FileName="Assets/Scripts/SetDropDown.cs" Line="13" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
