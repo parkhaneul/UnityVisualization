@@ -6,9 +6,14 @@ public class ColorPicker : MonoBehaviour
 {
     public float radius;
     public float inCircleRadius;
-    [Range(3, 60)]
-    public int degree = 3;
+    public ColorWheel wheel;
+    public GameObject picker;
+    public Camera uiCamera;
+    private int degree = 20;
+    private bool isClicked = false;
     public Material material;
+    public Material gradationMaterial;
+    Ray ray;
 
     void Start()
     {
@@ -37,7 +42,37 @@ public class ColorPicker : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
-    Vector3 getCircularPosition(int currentDegree,float _radius)
+    void Update()
+    {
+        RaycastHit hit;
+        ray = uiCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (isClicked)
+        {
+            var vector = uiCamera.ScreenToWorldPoint(Input.mousePosition) - picker.transform.position;
+            var angle = Mathf.Atan2(vector.x, vector.y);
+            float x = Mathf.Sin(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
+            float y = Mathf.Cos(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
+            this.transform.localPosition = new Vector3(x,y,-2);
+            gradationMaterial.color = getColor(((angle + 2 * Mathf.PI)%(2*Mathf.PI)) * Mathf.Rad2Deg);
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if(Physics.Raycast(ray, out hit) && hit.transform.tag == "Picker")
+                {
+                    isClicked = true;
+                }
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            isClicked = false;
+        }
+    }
+
+    Vector3 getCircularPosition(int currentDegree, float _radius)
     {
         float deg = (float)currentDegree / degree * 360.0f;
         float x = Mathf.Sin(deg * Mathf.PI / 180) * _radius;
@@ -48,42 +83,25 @@ public class ColorPicker : MonoBehaviour
     int[] linkCircles(Vector3[] _vertices)
     {
         var temp = new int[degree * 6];
-        for(int i = 0; i < degree; i++)
+        for (int i = 0; i < degree; i++)
         {
             temp[i * 3] = i;
             temp[i * 3 + 1] = (i + 1) % degree;
             temp[i * 3 + 2] = i + degree;
-            /*
-             *  0 - 0 1 10
-             *  1 - 1 2 11
-             *  2 - 2 3 12
-             *  3 - 3 4 13
-             *  4 - 4 5 14
-             *  5 - 5 6 15
-             *  6 - 6 7 16
-             *  7 - 7 8 17
-             *  8 - 8 9 18
-             *  9 - 9 0 19  
-             */           
         }
-        for(int i = degree; i < degree*2; i++)
+        for (int i = degree; i < degree * 2; i++)
         {
             temp[i * 3] = i;
-            temp[i * 3 + 1] = (i+1) % degree;
-            temp[i * 3 + 2] = degree + (i+1)%degree;
-            /*
-            *  10 - 10 1 11
-            *  11 - 11 2 12
-            *  12 - 12 3 13
-            *  13 - 13 4 14
-            *  14 - 14 5 15
-            *  15 - 15 6 16
-            *  16 - 16 7 17
-            *  17 - 17 8 18
-            *  18 - 18 9 19
-            *  19 - 19 0 10  
-            */
+            temp[i * 3 + 1] = (i + 1) % degree;
+            temp[i * 3 + 2] = degree + (i + 1) % degree;
         }
         return temp;
+    }
+
+    Color getColor(float angle)
+    {
+        Debug.Log(angle / 360);
+        var c = Color.HSVToRGB(angle / 360, 1, 1,true);
+        return c;
     }
 }
