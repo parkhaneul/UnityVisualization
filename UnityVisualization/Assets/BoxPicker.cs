@@ -55,7 +55,7 @@ public class BoxPicker : MonoBehaviour
             var yScale = gradationBox.transform.lossyScale.z;
             float x = Mathf.Clamp(vector.x, -xScale * 4, xScale * 4);
             float y = Mathf.Clamp(vector.y, -yScale * 4, yScale * 4);
-            this.transform.position = gradationBox.transform.position + new Vector3(x, y, -2);
+            this.transform.position = new Vector3(x, y, -2);
             getColor((x + 16)/32,(y + 16)/32);
         }
         else
@@ -106,6 +106,7 @@ public class BoxPicker : MonoBehaviour
         float h,s,v;
         Color.RGBToHSV(color, out h,out s,out v);
         var c = Color.HSVToRGB(h, x, y, true);
+        Debug.Log(c);
         return c;
     }
 }
