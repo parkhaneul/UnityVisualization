@@ -74,8 +74,12 @@ Material:
     - _ZWrite: 1
     m_Colors:
 <<<<<<< HEAD
+<<<<<<< HEAD
     - _Color: {r: 0, g: 1, b: 0.6392536, a: 1}
 =======
     - _Color: {r: 1, g: 0.008297732, b: 0, a: 1}
 >>>>>>> parent of edf4c63... update 20190502
+=======
+    - _Color: {r: 0, g: 0.27347183, b: 1, a: 1}
+>>>>>>> 4c8a1e42ac7f8b86859f075892721738ca78442e
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
