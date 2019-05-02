@@ -6,24 +6,22 @@ public class AxisSetting : MonoBehaviour
 {
     public GameObject vectorController;
     public propertySetting propertyController;
+    public DataManagement manager;
 
-    private Axis currentAxis;
     private int index;
 
     public void setAxis(int _index)
     {
         index = _index;
-        currentAxis = SetDropDown.myAxis[index];
-        setProperty();
     }
 
-    public void setVector()
+    public void setVector(Vector3 _vector)
     {
-        var temp = currentAxis.vector;
+        manager.axisArray[index].setVector(_vector);
     }
 
-    public void setProperty()
+    public void setColor(Color _color)
     {
-        //propertyController.setProperty();
+        manager.axisArray[index].setColor(_color);
     }
 }

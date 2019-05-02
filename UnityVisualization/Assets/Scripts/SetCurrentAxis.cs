@@ -3,26 +3,23 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class SetDropDown : MonoBehaviour
+public class SetCurrentAxis : MonoBehaviour
 {
-    public static List<Axis> myAxis = new List<Axis>();
-    public AxisSetting axisSetting;
-    public propertySetting propertySetting;
+    public DataManagement manager;
     public Dropdown dropdown;
-
     private int currentIndex = 0;
 
     public void addValue(string str = "new Axis")
     {
         var newAxis = new Axis();
-        myAxis.Add(newAxis);
+        manager.axisArray.Add(newAxis);
         dropdown.options.Add(new Dropdown.OptionData(str));
     }
 
     public void deleteValue()
     {
         var value = dropdown.value;
-        myAxis.RemoveAt(value);
+        manager.axisArray.RemoveAt(value);
         dropdown.options.RemoveAt(value);
         dropdown.value = 0;
         dropdown.RefreshShownValue();
@@ -30,6 +27,11 @@ public class SetDropDown : MonoBehaviour
 
     public void changeAxis(int index)
     {
-        axisSetting.setAxis(index);
+        currentIndex = index;
+    }
+
+    public int getListCount()
+    {
+        return manager.axisArray.Count;
     }
 }
