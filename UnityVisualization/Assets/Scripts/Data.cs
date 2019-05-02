@@ -40,6 +40,7 @@ public struct Axis
 {
     public Vector3 vector;
     public List<Weight> weights;
+    public Color color;
 }
 
 public struct Weight{
