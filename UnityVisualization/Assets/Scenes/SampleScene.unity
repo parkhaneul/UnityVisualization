@@ -171,8 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56dcd0123149a423c8d3fcba81ecb478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axisSetting: {fileID: 0}
-  propertySetting: {fileID: 0}
+  axisSetting: {fileID: 953539155}
   dropdown: {fileID: 1563504773}
 --- !u!114 &91712027
 MonoBehaviour:
@@ -889,6 +888,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5fa4256619c6d4f8184fcd17277a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   Content: {fileID: 1100638994}
   PropertySelector: {fileID: 1542916185}
 --- !u!4 &398631864
@@ -998,6 +1003,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PropertySelector
       objectReference: {fileID: 0}
+    - target: {fileID: 9172148386235126485, guid: 29a3eb4aac34d4b7fa7023ac404ad201,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9172148386235126486, guid: 29a3eb4aac34d4b7fa7023ac404ad201,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1106,12 +1116,12 @@ PrefabInstance:
     - target: {fileID: 9172148384312618039, guid: 29a3eb4aac34d4b7fa7023ac404ad201,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9172148385258291062, guid: 29a3eb4aac34d4b7fa7023ac404ad201,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29a3eb4aac34d4b7fa7023ac404ad201, type: 3}
@@ -1882,6 +1892,7 @@ GameObject:
   - component: {fileID: 953539154}
   - component: {fileID: 953539153}
   - component: {fileID: 953539152}
+  - component: {fileID: 953539155}
   m_Layer: 5
   m_Name: PropertyScrollList
   m_TagString: Untagged
@@ -1980,6 +1991,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953539150}
   m_CullTransparentMesh: 0
+--- !u!114 &953539155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953539150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85bafeb2466c481ea8604be633c2811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyListContent: {fileID: 1100639000}
+  propertyController: {fileID: 9172148386235126487, guid: 29a3eb4aac34d4b7fa7023ac404ad201,
+    type: 3}
 --- !u!1 &960435394
 GameObject:
   m_ObjectHideFlags: 0
@@ -2496,6 +2522,7 @@ GameObject:
   - component: {fileID: 1100638998}
   - component: {fileID: 1100638997}
   - component: {fileID: 1100638996}
+  - component: {fileID: 1100639000}
   m_Layer: 5
   m_Name: PropertyListContent
   m_TagString: Untagged
@@ -2597,6 +2624,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100638994}
   m_CullTransparentMesh: 0
+--- !u!114 &1100639000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100638994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28340a263e7105b4f998ec1853c28e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PropertySelector: {fileID: 9172148386235126485, guid: 29a3eb4aac34d4b7fa7023ac404ad201,
+    type: 3}
 --- !u!1 &1171176380
 GameObject:
   m_ObjectHideFlags: 0
@@ -2759,8 +2800,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 91712026}
-        m_MethodName: addValue
-        m_Mode: 5
+        m_MethodName: OnClickPlusButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4265,7 +4306,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 91712026}
-        m_MethodName: deleteValue
+        m_MethodName: OnClickMinusButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4564,7 +4605,7 @@ GameObject:
   - component: {fileID: 2103417652}
   - component: {fileID: 2103417651}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AddButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4630,7 +4671,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 398631863}
+      - m_Target: {fileID: 953539155}
         m_MethodName: OnClickAddPropertySelector
         m_Mode: 1
         m_Arguments:
@@ -4803,8 +4844,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f85bafeb2466c481ea8604be633c2811, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vectorController: {fileID: 0}
-  propertyController: {fileID: 881318923}
+  propertyListContent: {fileID: 0}
+  propertyController: {fileID: 0}
 --- !u!1001 &9172148385353846492
 PrefabInstance:
   m_ObjectHideFlags: 0

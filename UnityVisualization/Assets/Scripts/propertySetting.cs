@@ -8,7 +8,6 @@ public class propertySetting : MonoBehaviour
     public Dropdown dropdown;
     public Slider slider;
     public Text text;
-
     public Weight currentWeight;
 
     public void Start()

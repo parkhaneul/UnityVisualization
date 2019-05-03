@@ -6,20 +6,31 @@ using UnityEngine;
 public class SetDropDown : MonoBehaviour
 {
     public static List<Axis> myAxis = new List<Axis>();
+	
     public AxisSetting axisSetting;
-    public propertySetting propertySetting;
     public Dropdown dropdown;
 
-    private int currentIndex = 0;
+	private int currentIndex = 0;
 
-    public void addValue(string str = "new Axis")
+	public void OnClickPlusButton()
+	{
+		addValue("new Axis");
+	}
+
+	public void OnClickMinusButton()
+	{
+		deleteValue();
+	}
+    
+
+    private void addValue(string str)
     {
         var newAxis = new Axis();
         myAxis.Add(newAxis);
         dropdown.options.Add(new Dropdown.OptionData(str));
     }
 
-    public void deleteValue()
+    private void deleteValue()
     {
         var value = dropdown.value;
         myAxis.RemoveAt(value);

@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class AxisSetting : MonoBehaviour
 {
-    public GameObject vectorController;
+    //public GameObject vectorController;
+
+	public PropertyListContent propertyListContent;
+
     public propertySetting propertyController;
 
     private Axis currentAxis;
     private int index;
+	
 
-    public void setAxis(int _index)
+	public void setAxis(int _index)
     {
         index = _index;
         currentAxis = SetDropDown.myAxis[index];
-        setProperty();
+
+		
+        ChangePropertyInfo();
     }
 
     public void setVector()
@@ -22,8 +28,24 @@ public class AxisSetting : MonoBehaviour
         var temp = currentAxis.vector;
     }
 
-    public void setProperty()
+    public void ChangePropertyInfo()
     {
-        //propertyController.setProperty();
-    }
+		foreach(Transform p in propertyListContent.transform)
+		{
+			GameObject.Destroy(p.gameObject);
+		}
+		//propertyController.setProperty();
+	}
+
+	public void OnClickAddPropertySelector()
+	{
+
+		GameObject g = GameObject.Instantiate(propertyController.gameObject);
+		g.transform.parent = propertyListContent.transform;
+		g.transform.localScale = Vector3.one;
+		Debug.Log("propertyselector추가 기능을 구현해야 합니다.");
+		//propertyselector추가
+
+	}
+
 }
