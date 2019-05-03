@@ -18,7 +18,6 @@ public class AxisSetting : MonoBehaviour
     {
         index = _index;
         currentAxis = SetDropDown.myAxis[index];
-
 		
         ChangePropertyInfo();
     }
@@ -47,5 +46,4 @@ public class AxisSetting : MonoBehaviour
 		//propertyselector추가
 
 	}
-
 }

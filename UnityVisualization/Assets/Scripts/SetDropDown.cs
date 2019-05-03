@@ -9,25 +9,42 @@ public class SetDropDown : MonoBehaviour
 	
     public AxisSetting axisSetting;
     public Dropdown dropdown;
+	public InputField InputText;
 
 	private int currentIndex = 0;
 
+	private void Start()
+	{
+		addValue();
+	}
+
 	public void OnClickPlusButton()
 	{
-		addValue("new Axis");
+		addValue();
 	}
 
 	public void OnClickMinusButton()
 	{
 		deleteValue();
 	}
+
+	public void OnNameChange()
+	{
+		InputText.text = InputText.text;
+		Axis temp = myAxis[currentIndex];
+		temp.name = InputText.text;
+		myAxis[currentIndex] = temp;
+		Debug.Log(currentIndex + " " + myAxis[currentIndex].name + "::" + InputText.text);
+		dropdown.options[dropdown.value].text = InputText.text;
+	}
     
 
-    private void addValue(string str)
+    private void addValue()
     {
         var newAxis = new Axis();
-        myAxis.Add(newAxis);
-        dropdown.options.Add(new Dropdown.OptionData(str));
+		newAxis.name = "new Axis";
+		myAxis.Add(newAxis);
+		dropdown.options.Add(new Dropdown.OptionData(newAxis.name));
     }
 
     private void deleteValue()
@@ -41,6 +58,8 @@ public class SetDropDown : MonoBehaviour
 
     public void changeAxis(int index)
     {
-        axisSetting.setAxis(index);
-    }
+		currentIndex = index;
+		axisSetting.setAxis(index);
+		InputText.text = myAxis[index].name;
+	}
 }

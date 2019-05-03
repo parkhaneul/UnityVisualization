@@ -40,6 +40,11 @@ public struct Axis
 {
     public Vector3 vector;
     public List<Weight> weights;
+	public string name;
+	public void SetName(string str)
+	{
+		this.name = str;
+	}
 }
 
 public struct Weight{
