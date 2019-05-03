@@ -38,12 +38,19 @@ public class AxisSetting : MonoBehaviour
 
 	public void OnClickAddPropertySelector()
 	{
+		/*
+		//SetDropDown.myAxis[index].weights를 저장하는 코드!;
+		Weight w = new Weight();
+		Axis temp = SetDropDown.myAxis[index];
+		temp.weights.Add(w);
+
 
 		GameObject g = GameObject.Instantiate(propertyController.gameObject);
 		g.transform.parent = propertyListContent.transform;
 		g.transform.localScale = Vector3.one;
 		Debug.Log("propertyselector추가 기능을 구현해야 합니다.");
 		//propertyselector추가
+		*/
 
 	}
 }
