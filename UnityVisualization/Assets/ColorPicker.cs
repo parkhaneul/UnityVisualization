@@ -52,7 +52,7 @@ public class ColorPicker : MonoBehaviour
         if (isClicked)
         {
             var vector = picker.transform.position + uiCamera.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(uiCamera.ScreenToWorldPoint(Input.mousePosition));
+            //Debug.Log(uiCamera.ScreenToWorldPoint(Input.mousePosition));
             angle = Mathf.Atan2(vector.x, vector.y);
             float x = Mathf.Sin(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
             float y = Mathf.Cos(angle) * (wheel.radius + wheel.inCircleRadius) / 2;

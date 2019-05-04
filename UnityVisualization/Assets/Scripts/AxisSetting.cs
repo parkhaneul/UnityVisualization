@@ -4,53 +4,58 @@ using UnityEngine;
 
 public class AxisSetting : MonoBehaviour
 {
-    //public GameObject vectorController;
+	//public GameObject vectorController;
 
 	public PropertyListContent propertyListContent;
+    public GameObject propertyController;
 
-    public propertySetting propertyController;
+	private List<propertySetting> propertySettings = new List<propertySetting>();
 
     private Axis currentAxis;
-    private int index;
+	public static int index;
 	
 
-	public void setAxis(int _index)
+	public void SetAxis(int _index)
     {
         index = _index;
         currentAxis = SetDropDown.myAxis[index];
 		
-        ChangePropertyInfo();
+        ChangePropertiesInfo();
     }
 
-    public void setVector()
-    {
-        var temp = currentAxis.vector;
-    }
-
-    public void ChangePropertyInfo()
+    private void ChangePropertiesInfo()
     {
 		foreach(Transform p in propertyListContent.transform)
 		{
 			GameObject.Destroy(p.gameObject);
 		}
-		//propertyController.setProperty();
+		propertySettings.Clear();
+		foreach (Weight w in currentAxis.weights)
+		{
+			Debug.Log(w.propertyIndex + " :: " + w.weight);
+			ActiveProperty(w);
+		}
 	}
 
 	public void OnClickAddPropertySelector()
 	{
-		/*
-		//SetDropDown.myAxis[index].weights를 저장하는 코드!;
 		Weight w = new Weight();
-		Axis temp = SetDropDown.myAxis[index];
-		temp.weights.Add(w);
+		w.propertyIndex = 0;
+		w.weight = 0;
+		SetDropDown.myAxis[index].weights.Add(w);
 
+		ActiveProperty(w);
+	}
 
-		GameObject g = GameObject.Instantiate(propertyController.gameObject);
+	private void ActiveProperty(Weight w)
+	{
+		GameObject g = GameObject.Instantiate(propertyController);
 		g.transform.parent = propertyListContent.transform;
 		g.transform.localScale = Vector3.one;
-		Debug.Log("propertyselector추가 기능을 구현해야 합니다.");
-		//propertyselector추가
-		*/
-
+		g.GetComponent<propertySetting>().dropdown.value = w.propertyIndex;
+		g.GetComponent<propertySetting>().slider.value = w.weight;
+		g.GetComponent<propertySetting>().text.text = w.weight.ToString();
+		g.GetComponent<propertySetting>().SettingIndex = propertySettings.Count;
+		propertySettings.Add(g.GetComponent<propertySetting>());
 	}
 }

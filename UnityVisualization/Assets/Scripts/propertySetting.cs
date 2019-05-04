@@ -8,7 +8,10 @@ public class propertySetting : MonoBehaviour
     public Dropdown dropdown;
     public Slider slider;
     public Text text;
-    public Weight currentWeight;
+	public int SettingIndex;
+
+	//private int propertyIndex;
+    //public Weight currentWeight;
 
     public void Start()
     {
@@ -21,10 +24,14 @@ public class propertySetting : MonoBehaviour
 
     public void changeValue()
     {
-        var temp = slider.value * 0.01f;
-        text.text = temp.ToString();
-    }
+        text.text = slider.value.ToString();
 
+		Weight temp = SetDropDown.myAxis[AxisSetting.index].weights[SettingIndex];
+		temp.propertyIndex = dropdown.value;
+		temp.weight = slider.value;
+		SetDropDown.myAxis[AxisSetting.index].weights[SettingIndex] = temp;
+	}
+	/*
     public Weight GetWeight()
     {
         var temp = new Weight();
@@ -32,4 +39,5 @@ public class propertySetting : MonoBehaviour
         temp.weight = slider.value;
         return temp;
     }
+	*/
 }
