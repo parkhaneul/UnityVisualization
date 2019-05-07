@@ -10,8 +10,14 @@ public class propertySetting : MonoBehaviour
     public Text text;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     public Weight currentWeight;
 =======
+=======
+>>>>>>> parent of 1bc4796... delete modify
+=======
+>>>>>>> parent of 1bc4796... delete modify
 =======
 >>>>>>> parent of 1bc4796... delete modify
 	public int SettingIndex;
@@ -46,6 +52,12 @@ public class propertySetting : MonoBehaviour
 	}
 	/*
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 1bc4796... delete modify
+=======
+>>>>>>> parent of 1bc4796... delete modify
+=======
 >>>>>>> parent of 1bc4796... delete modify
 =======
 >>>>>>> parent of 1bc4796... delete modify
@@ -58,6 +70,14 @@ public class propertySetting : MonoBehaviour
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	*/
+>>>>>>> parent of 1bc4796... delete modify
+=======
+	*/
+>>>>>>> parent of 1bc4796... delete modify
 =======
 	*/
 >>>>>>> parent of 1bc4796... delete modify
