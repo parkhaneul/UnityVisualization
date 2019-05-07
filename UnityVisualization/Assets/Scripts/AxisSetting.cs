@@ -81,6 +81,7 @@ public class AxisSetting : MonoBehaviour
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	public static void DeleteProperty(int index)
 	{
@@ -93,6 +94,8 @@ public class AxisSetting : MonoBehaviour
 		}
 	}
 >>>>>>> 1bc47965b7eb2c45804ed2329bde0353febe538d
+=======
+>>>>>>> parent of 1bc4796... delete modify
 =======
 >>>>>>> parent of 1bc4796... delete modify
 =======
