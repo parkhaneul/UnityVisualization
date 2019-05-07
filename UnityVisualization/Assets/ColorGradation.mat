@@ -76,6 +76,7 @@ Material:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     - _Color: {r: 0, g: 1, b: 0.6392536, a: 1}
 =======
     - _Color: {r: 1, g: 0.008297732, b: 0, a: 1}
@@ -86,4 +87,7 @@ Material:
 =======
     - _Color: {r: 1, g: 0, b: 0.33426857, a: 1}
 >>>>>>> 1bc47965b7eb2c45804ed2329bde0353febe538d
+=======
+    - _Color: {r: 0, g: 0.27347183, b: 1, a: 1}
+>>>>>>> parent of 5c27156... last
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
