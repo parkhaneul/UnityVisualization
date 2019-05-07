@@ -9,8 +9,11 @@ public class propertySetting : MonoBehaviour
     public Slider slider;
     public Text text;
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Weight currentWeight;
 =======
+=======
+>>>>>>> parent of 1bc4796... delete modify
 	public int SettingIndex;
 
 	//private int propertyIndex;
@@ -42,6 +45,9 @@ public class propertySetting : MonoBehaviour
 		SetDropDown.myAxis[AxisSetting.index].weights[SettingIndex] = temp;
 	}
 	/*
+<<<<<<< HEAD
+>>>>>>> parent of 1bc4796... delete modify
+=======
 >>>>>>> parent of 1bc4796... delete modify
     public Weight GetWeight()
     {
@@ -51,6 +57,10 @@ public class propertySetting : MonoBehaviour
         return temp;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	*/
+>>>>>>> parent of 1bc4796... delete modify
 =======
 	*/
 >>>>>>> parent of 1bc4796... delete modify

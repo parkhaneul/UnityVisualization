@@ -9,7 +9,11 @@ public class AxisSetting : MonoBehaviour
 	public PropertyListContent propertyListContent;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public propertySetting propertyController;
+=======
+	private List<propertySetting> propertySettings = new List<propertySetting>();
+>>>>>>> parent of 1bc4796... delete modify
 =======
 	private List<propertySetting> propertySettings = new List<propertySetting>();
 >>>>>>> parent of 1bc4796... delete modify
@@ -46,6 +50,9 @@ public class AxisSetting : MonoBehaviour
 			Debug.Log(w.propertyIndex + " :: " + w.weight);
 			ActiveProperty(w);
 		}
+<<<<<<< HEAD
+>>>>>>> parent of 1bc4796... delete modify
+=======
 >>>>>>> parent of 1bc4796... delete modify
 	}
 
@@ -72,6 +79,9 @@ public class AxisSetting : MonoBehaviour
 		g.GetComponent<propertySetting>().text.text = w.weight.ToString();
 		g.GetComponent<propertySetting>().SettingIndex = propertySettings.Count;
 		propertySettings.Add(g.GetComponent<propertySetting>());
+<<<<<<< HEAD
+>>>>>>> parent of 1bc4796... delete modify
+=======
 >>>>>>> parent of 1bc4796... delete modify
 	}
 }
