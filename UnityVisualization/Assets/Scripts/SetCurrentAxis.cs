@@ -5,18 +5,61 @@ using UnityEngine;
 
 public class SetCurrentAxis : MonoBehaviour
 {
+<<<<<<< HEAD:UnityVisualization/Assets/Scripts/SetCurrentAxis.cs
     public DataManagement manager;
     public Dropdown dropdown;
     private int currentIndex = 0;
+=======
+    public static List<Axis> myAxis = new List<Axis>();
+	
+    public AxisSetting axisSetting;
+    public Dropdown dropdown;
+	public InputField InputText;
 
-    public void addValue(string str = "new Axis")
+	private int currentIndex = 0;
+>>>>>>> 1bc47965b7eb2c45804ed2329bde0353febe538d:UnityVisualization/Assets/Scripts/SetDropDown.cs
+
+	private void Start()
+	{
+		addValue();
+	}
+
+	public void OnClickPlusButton()
+	{
+		addValue();
+	}
+
+	public void OnClickMinusButton()
+	{
+		deleteValue();
+	}
+
+	public void OnNameChange()
+	{
+		InputText.text = InputText.text;
+		Axis temp = myAxis[currentIndex];
+		temp.name = InputText.text;
+		myAxis[currentIndex] = temp;
+		dropdown.options[dropdown.value].text = InputText.text;
+	}
+    
+
+    private void addValue()
     {
         var newAxis = new Axis();
+<<<<<<< HEAD:UnityVisualization/Assets/Scripts/SetCurrentAxis.cs
         manager.axisArray.Add(newAxis);
         dropdown.options.Add(new Dropdown.OptionData(str));
     }
+=======
+		newAxis.weights = new List<Weight>();
+		newAxis.name = "new Axis";
+		myAxis.Add(newAxis);
+		dropdown.options.Add(new Dropdown.OptionData(newAxis.name));
+	}
+>>>>>>> 1bc47965b7eb2c45804ed2329bde0353febe538d:UnityVisualization/Assets/Scripts/SetDropDown.cs
 
-    public void deleteValue()
+    private void deleteValue()
     {
         var value = dropdown.value;
         manager.axisArray.RemoveAt(value);
@@ -27,6 +70,7 @@ public class SetCurrentAxis : MonoBehaviour
 
     public void changeAxis(int index)
     {
+<<<<<<< HEAD:UnityVisualization/Assets/Scripts/SetCurrentAxis.cs
         currentIndex = index;
     }
 
@@ -34,4 +78,10 @@ public class SetCurrentAxis : MonoBehaviour
     {
         return manager.axisArray.Count;
     }
+=======
+		currentIndex = index;
+		axisSetting.SetAxis(index);
+		InputText.text = myAxis[index].name;
+	}
+>>>>>>> 1bc47965b7eb2c45804ed2329bde0353febe538d:UnityVisualization/Assets/Scripts/SetDropDown.cs
 }

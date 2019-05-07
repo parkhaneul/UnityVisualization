@@ -40,6 +40,7 @@ public struct Axis
 {
     public Vector3 vector;
     public List<Weight> weights;
+<<<<<<< HEAD
     public Color color;
 
     public void setVector(Vector3 _vector)
@@ -56,6 +57,9 @@ public struct Axis
     {
         this.color = _color;
     }
+=======
+	public string name;
+>>>>>>> 1bc47965b7eb2c45804ed2329bde0353febe538d
 }
 
 public struct Weight{
