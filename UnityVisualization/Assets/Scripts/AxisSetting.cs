@@ -16,7 +16,7 @@ public class AxisSetting : MonoBehaviour
 	public PropertyListContent propertyListContent;
     public GameObject propertyController;
 
-	private static List<propertySetting> propertySettings = new List<propertySetting>();
+	private List<propertySetting> propertySettings = new List<propertySetting>();
 
     private Axis currentAxis;
 	public static int index;
@@ -51,18 +51,11 @@ public class AxisSetting : MonoBehaviour
 			GameObject.Destroy(p.gameObject);
 		}
 		propertySettings.Clear();
-		for (int i = 0; i < currentAxis.weights.Count; i++)
-		{
-			ActiveProperty(currentAxis.weights[i]);
-		}
-		//Struct 배열에서 foreach 사용말자...ㅠㅠ
-		/*
 		foreach (Weight w in currentAxis.weights)
 		{
 			Debug.Log(w.propertyIndex + " :: " + w.weight);
 			ActiveProperty(w);
 		}
-		*/
 	}
 
 	public void OnClickAddPropertySelector()
@@ -86,6 +79,7 @@ public class AxisSetting : MonoBehaviour
 		g.GetComponent<propertySetting>().SettingIndex = propertySettings.Count;
 		propertySettings.Add(g.GetComponent<propertySetting>());
 	}
+<<<<<<< HEAD
 
 	public static void DeleteProperty(int index)
 	{
@@ -98,4 +92,6 @@ public class AxisSetting : MonoBehaviour
 		}
 	}
 >>>>>>> 1bc47965b7eb2c45804ed2329bde0353febe538d
+=======
+>>>>>>> parent of 1bc4796... delete modify
 }
