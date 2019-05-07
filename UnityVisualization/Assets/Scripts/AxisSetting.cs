@@ -8,7 +8,11 @@ public class AxisSetting : MonoBehaviour
 
 	public PropertyListContent propertyListContent;
 
+<<<<<<< HEAD
     public propertySetting propertyController;
+=======
+	private List<propertySetting> propertySettings = new List<propertySetting>();
+>>>>>>> parent of 1bc4796... delete modify
 
     private Axis currentAxis;
     private int index;
@@ -33,7 +37,16 @@ public class AxisSetting : MonoBehaviour
 		{
 			GameObject.Destroy(p.gameObject);
 		}
+<<<<<<< HEAD
 		//propertyController.setProperty();
+=======
+		propertySettings.Clear();
+		foreach (Weight w in currentAxis.weights)
+		{
+			Debug.Log(w.propertyIndex + " :: " + w.weight);
+			ActiveProperty(w);
+		}
+>>>>>>> parent of 1bc4796... delete modify
 	}
 
 	public void OnClickAddPropertySelector()
@@ -48,9 +61,17 @@ public class AxisSetting : MonoBehaviour
 		GameObject g = GameObject.Instantiate(propertyController.gameObject);
 		g.transform.parent = propertyListContent.transform;
 		g.transform.localScale = Vector3.one;
+<<<<<<< HEAD
 		Debug.Log("propertyselector추가 기능을 구현해야 합니다.");
 		//propertyselector추가
 		*/
 
+=======
+		g.GetComponent<propertySetting>().dropdown.value = w.propertyIndex;
+		g.GetComponent<propertySetting>().slider.value = w.weight;
+		g.GetComponent<propertySetting>().text.text = w.weight.ToString();
+		g.GetComponent<propertySetting>().SettingIndex = propertySettings.Count;
+		propertySettings.Add(g.GetComponent<propertySetting>());
+>>>>>>> parent of 1bc4796... delete modify
 	}
 }
