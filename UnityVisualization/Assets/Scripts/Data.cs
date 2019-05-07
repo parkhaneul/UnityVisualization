@@ -40,10 +40,46 @@ public struct Axis
 {
     public Vector3 vector;
     public List<Weight> weights;
+<<<<<<< HEAD
+    public Color color;
+
+    public void setVector(Vector3 _vector)
+    {
+        this.vector = _vector;
+    }
+
+    public void setWeight(List<Weight> _weights)
+    {
+        this.weights = _weights;
+    }
+
+    public void setColor(Color _color)
+    {
+        this.color = _color;
+    }
+=======
 	public string name;
+<<<<<<< HEAD
+>>>>>>> 1bc47965b7eb2c45804ed2329bde0353febe538d
+=======
+	public void SetName(string str)
+	{
+		this.name = str;
+	}
+>>>>>>> parent of 0da9fa0... 수정작업
 }
 
 public struct Weight{
     public int propertyIndex;
     public float weight;
+
+    public void setIndex(int _index)
+    {
+        this.propertyIndex = _index;
+    }
+
+    public void setWeight(float _weight)
+    {
+        this.weight = _weight;
+    }
 }

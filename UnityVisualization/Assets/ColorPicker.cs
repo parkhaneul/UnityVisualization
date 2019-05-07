@@ -10,7 +10,7 @@ public class ColorPicker : MonoBehaviour
     public GameObject picker;
     public Camera uiCamera;
     private int degree = 20;
-    private bool isClicked = true;//false;
+    private bool isClicked = false;
     public Material material;
     public Material gradationMaterial;
 
@@ -51,8 +51,16 @@ public class ColorPicker : MonoBehaviour
 
         if (isClicked)
         {
+<<<<<<< HEAD
             var vector = picker.transform.position + uiCamera.ScreenToWorldPoint(Input.mousePosition);
+<<<<<<< HEAD
             //Debug.Log(uiCamera.ScreenToWorldPoint(Input.mousePosition));
+=======
+            var vector = uiCamera.ScreenToWorldPoint(Input.mousePosition) - picker.transform.position;
+>>>>>>> parent of 5c27156... last
+=======
+            Debug.Log(uiCamera.ScreenToWorldPoint(Input.mousePosition));
+>>>>>>> parent of 0da9fa0... 수정작업
             angle = Mathf.Atan2(vector.x, vector.y);
             float x = Mathf.Sin(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
             float y = Mathf.Cos(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
