@@ -59,7 +59,14 @@ public struct Axis
     }
 =======
 	public string name;
+<<<<<<< HEAD
 >>>>>>> 1bc47965b7eb2c45804ed2329bde0353febe538d
+=======
+	public void SetName(string str)
+	{
+		this.name = str;
+	}
+>>>>>>> parent of 0da9fa0... 수정작업
 }
 
 public struct Weight{

@@ -4,58 +4,53 @@ using UnityEngine;
 
 public class AxisSetting : MonoBehaviour
 {
-	//public GameObject vectorController;
+    //public GameObject vectorController;
 
 	public PropertyListContent propertyListContent;
-    public GameObject propertyController;
 
-	private List<propertySetting> propertySettings = new List<propertySetting>();
+    public propertySetting propertyController;
 
     private Axis currentAxis;
-	public static int index;
+    private int index;
 	
 
-	public void SetAxis(int _index)
+	public void setAxis(int _index)
     {
         index = _index;
         currentAxis = SetDropDown.myAxis[index];
 		
-        ChangePropertiesInfo();
+        ChangePropertyInfo();
     }
 
-    private void ChangePropertiesInfo()
+    public void setVector()
+    {
+        var temp = currentAxis.vector;
+    }
+
+    public void ChangePropertyInfo()
     {
 		foreach(Transform p in propertyListContent.transform)
 		{
 			GameObject.Destroy(p.gameObject);
 		}
-		propertySettings.Clear();
-		foreach (Weight w in currentAxis.weights)
-		{
-			Debug.Log(w.propertyIndex + " :: " + w.weight);
-			ActiveProperty(w);
-		}
+		//propertyController.setProperty();
 	}
 
 	public void OnClickAddPropertySelector()
 	{
+		/*
+		//SetDropDown.myAxis[index].weights를 저장하는 코드!;
 		Weight w = new Weight();
-		w.propertyIndex = 0;
-		w.weight = 0;
-		SetDropDown.myAxis[index].weights.Add(w);
+		Axis temp = SetDropDown.myAxis[index];
+		temp.weights.Add(w);
 
-		ActiveProperty(w);
-	}
 
-	private void ActiveProperty(Weight w)
-	{
-		GameObject g = GameObject.Instantiate(propertyController);
+		GameObject g = GameObject.Instantiate(propertyController.gameObject);
 		g.transform.parent = propertyListContent.transform;
 		g.transform.localScale = Vector3.one;
-		g.GetComponent<propertySetting>().dropdown.value = w.propertyIndex;
-		g.GetComponent<propertySetting>().slider.value = w.weight;
-		g.GetComponent<propertySetting>().text.text = w.weight.ToString();
-		g.GetComponent<propertySetting>().SettingIndex = propertySettings.Count;
-		propertySettings.Add(g.GetComponent<propertySetting>());
+		Debug.Log("propertyselector추가 기능을 구현해야 합니다.");
+		//propertyselector추가
+		*/
+
 	}
 }
