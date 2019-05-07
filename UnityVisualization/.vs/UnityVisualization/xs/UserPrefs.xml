@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{81A5EB19-1B89-638B-3EE8-1BFBD491B973}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/AxisColorChanger.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SetDropDown.cs">
     <Files>
       <File FileName="Assets/Scripts/ColorSetting.cs" Line="9" Column="24" />
       <File FileName="Assets/Scripts/CameraMovement.cs" Line="19" Column="19" />
