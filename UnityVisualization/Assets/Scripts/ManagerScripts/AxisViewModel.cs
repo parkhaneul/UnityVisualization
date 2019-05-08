@@ -67,6 +67,27 @@ public class AxisViewModel{
         setAxis(axis);
     }
 
+    public void addWeight(Weight _weight)
+    {
+        var axis = getAxis();
+        axis.weights.Add(_weight);
+        setAxis(axis);
+    }
+
+    public void removeWeight(Weight _weight)
+    {
+        var axis = getAxis();
+        axis.weights.Remove(_weight);
+        setAxis(axis);
+    }
+
+    public void removeWeightAt(int _index)
+    {
+        var axis = getAxis();
+        axis.weights.RemoveAt(_index);
+        setAxis(axis);
+    }
+
     public int getWeightCount()
     {
         return getAxis().weights.Count;
