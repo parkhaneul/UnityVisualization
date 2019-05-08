@@ -39,6 +39,7 @@ public struct Data
 public struct Axis
 {
     public Vector3 vector;
+    public Color color;
     public List<Weight> weights;
 	public string name;
 }

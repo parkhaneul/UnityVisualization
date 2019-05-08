@@ -1,10 +1,9 @@
 ﻿<Properties StartupConfiguration="{81A5EB19-1B89-638B-3EE8-1BFBD491B973}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ColorPicker.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Data.cs">
     <Files>
       <File FileName="Assets/Scripts/ColorSetting.cs" Line="9" Column="24" />
       <File FileName="Assets/Scripts/CameraMovement.cs" Line="19" Column="19" />
       <File FileName="Assets/Scripts/AxisRepositioner.cs" Line="11" Column="1" />
-      <File FileName="Assets/Resources/data.csv" Line="1" Column="1" />
       <File FileName="Assets/ColorWheel.cs" Line="43" Column="9" />
       <File FileName="Assets/vColorShader.shader" Line="45" Column="40" />
       <File FileName="Assets/GradationBox.cs" Line="19" Column="38" />
@@ -13,6 +12,9 @@
       <File FileName="Assets/BoxPicker.cs" Line="105" Column="44" />
       <File FileName="Assets/Scripts/SetDropDown.cs" Line="13" Column="1" />
       <File FileName="Assets/AxisColorChanger.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ManagerScripts/AxisViewModel.cs" Line="7" Column="5" />
+      <File FileName="Assets/Scripts/ManagerScripts/DataManager.cs" Line="26" Column="6" />
+      <File FileName="Assets/Scripts/Data.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
