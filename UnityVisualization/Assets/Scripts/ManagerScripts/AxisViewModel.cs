@@ -1,101 +1,195 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class AxisViewModel{
-    private int axisIndex = 0;
+//property의 상위 오브젝트여야함(listcontent)
+public class AxisViewModel : MonoBehaviour {
+	
+	public Dropdown dropdown;
+	public InputField InputText;
+	public GameObject propertyController;
 
-    public AxisViewModel(int index)
+	private static AxisViewModel _instance;
+	private int axisIndex;
+	private List<WeightSettingModel> propertyControllers = new List<WeightSettingModel>();
+
+	public static AxisViewModel Instance()
+	{
+		if (_instance == null)
+		{
+			_instance = new AxisViewModel();
+		}
+		return _instance;
+	}
+
+	private void Start()
+	{
+		AxisDataManager.Instance().AddAxis();
+		axisIndex = 0;
+	}
+
+	public void OnClickPlusButton()
+	{
+		//데이터 초기화 이름
+		AxisDataManager.Instance().AddAxis();
+		dropdown.options.Add(new Dropdown.OptionData("new Axis"));
+	}
+
+	public void OnClickMinusButton()
+	{
+		if (axisIndex > 0) {
+			AxisDataManager.Instance().RemoveAxisAt(axisIndex);
+			dropdown.options.RemoveAt(axisIndex);
+			dropdown.value = 0;
+			dropdown.RefreshShownValue();
+			OnChangeAxisIndex();
+		}
+		else
+		{
+			Debug.Log("Can't Delete Axis");
+		}
+	}
+
+	public void OnNameChange()
+	{
+		InputText.text = InputText.text;
+		Axis temp = AxisDataManager.Instance().GetAxis(axisIndex);
+		temp.name = InputText.text;
+		SetAxis(temp);
+		dropdown.options[dropdown.value].text = InputText.text;
+	}
+
+	public void OnClickAddWeightButton()
+	{
+		AddWeight();
+		AddWeightSettingObject(GetWeight(GetWeightCount() - 1));
+	}
+
+	public void OnChangeAxisIndex()
     {
-        axisIndex = index;
+        axisIndex = dropdown.value;
+		InputText.text = GetAxis().name;
+
+		foreach(Transform p in this.transform)
+		{
+			GameObject.Destroy(p.gameObject);
+		}
+		propertyControllers.Clear();
+		
+		for (int i = 0; i < GetAxis().weights.Count; i++)
+		{
+			Debug.Log(i);
+			AddWeightSettingObject(GetWeight(i));
+		}
     }
 
-    public void setIndex(int index)
+	
+
+	private void AddWeightSettingObject(Weight w)
+	{
+		Debug.Log(w.propertyIndex + "::" + w.weight);
+		GameObject g = GameObject.Instantiate(propertyController);
+		g.transform.SetParent(this.transform);
+		g.transform.localScale = Vector3.one;
+		g.GetComponent<WeightSettingModel>().SetWeightIndex(propertyControllers.Count);
+		g.GetComponent<WeightSettingModel>().axisViewModel = this;
+		propertyControllers.Add(g.GetComponent<WeightSettingModel>());
+		g.GetComponent<WeightSettingModel>().dropdown.value = w.propertyIndex;
+		g.GetComponent<WeightSettingModel>().slider.value = w.weight;
+		g.GetComponent<WeightSettingModel>().value.text = w.weight.ToString();
+		
+		
+		
+	}
+
+    public void SetAxis(Axis _axis)
     {
-        axisIndex = index;
+		Debug.Log("SetAxis" + axisIndex);
+		AxisDataManager.Instance().ChangeAxisAt(axisIndex, _axis);
     }
 
-    public void setAxis(Axis _axis)
+    public Axis GetAxis(int _index)
     {
-        DataManager.Instance().changeAxisAt(axisIndex, _axis);
+        return AxisDataManager.Instance().GetAxis(_index);
     }
 
-    public Axis getAxis(int _index)
+    public Axis GetAxis()
     {
-        return DataManager.Instance().getAxis(_index);
+        return GetAxis(axisIndex);
     }
 
-    public Axis getAxis()
+    public Vector3 GetVector3()
     {
-        return getAxis(axisIndex);
+        return GetAxis().vector;
     }
 
-    public Vector3 getVector3()
+    public Color GetColor()
     {
-        return getAxis().vector;
+        return GetAxis().color;
     }
 
-    public Color getColor()
-    {
-        return getAxis().color;
-    }
-
-    public void setVector3(Vector3 _vector) {
-        var axis = getAxis();
+    public void SetVector3(Vector3 _vector) {
+        var axis = GetAxis();
         axis.vector = _vector;
-        setAxis(axis);
+        SetAxis(axis);
     }
 
-    public void setColor(Color _color)
+    public void SetColor(Color _color)
     {
-        var axis = getAxis();
+
+        var axis = GetAxis();
         axis.color = _color;
-        setAxis(axis);
+        SetAxis(axis);
     }
 
-    public void setName(string _name)
+    public void SetName(string _name)
     {
-        var axis = getAxis();
+        var axis = GetAxis();
         axis.name = _name;
-        setAxis(axis);
+        SetAxis(axis);
     }
 
-    public void setWeight(List<Weight> _weights)
+    public void SetWeight(int index, Weight w)
     {
-        var axis = getAxis();
-        axis.weights = _weights;
-        setAxis(axis);
+		Debug.Log("SetWeight" + index);
+		Axis a = GetAxis();
+		a.weights[index] = w;
+		SetAxis(a);
     }
 
-    public void addWeight(Weight _weight)
+	//Weight 초기 값 설정
+    public void AddWeight()
     {
-        var axis = getAxis();
-        axis.weights.Add(_weight);
-        setAxis(axis);
+		Weight w = new Weight();
+		w.propertyIndex = 0;
+		w.weight = 0;
+
+		var axis = GetAxis();
+        axis.weights.Add(w);
+        SetAxis(axis);
     }
 
-    public void removeWeight(Weight _weight)
+    public void RemoveWeightAt(int _index)
     {
-        var axis = getAxis();
-        axis.weights.Remove(_weight);
-        setAxis(axis);
-    }
-
-    public void removeWeightAt(int _index)
-    {
-        var axis = getAxis();
+        var axis = GetAxis();
         axis.weights.RemoveAt(_index);
-        setAxis(axis);
+		SetAxis(axis);
+
+		GameObject.Destroy(propertyControllers[_index].gameObject);
+		propertyControllers.RemoveAt(_index);
+
+		for(int i = 0; i < propertyControllers.Count; i++) {
+			propertyControllers[i].GetComponent<WeightSettingModel>().SetWeightIndex(i);
+		}
+	}
+
+    public int GetWeightCount()
+    {
+        return GetAxis().weights.Count;
     }
 
-    public int getWeightCount()
+    public Weight GetWeight(int index)
     {
-        return getAxis().weights.Count;
-    }
-
-    public Weight getWeight(int index)
-    {
-        var temp = Mathf.Clamp(index, 0, getAxis().weights.Count-1);
-        return getAxis().weights[temp];
+        return GetAxis().weights[index];
     }
 }
