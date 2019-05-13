@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 public struct Data
 {
-    public string[] strData;
+    //public string[] strData;
     public float[] floatData;
 
     public Data(string str)
@@ -15,9 +15,9 @@ public struct Data
         var temp = Regex.Split(str, FileReader.SPLIT_RE);
         float f;
         int floatIndex = 0;
-        int strIndex = 0;
+        //int strIndex = 0;
         string value;
-        strData = new string[MetaData.strIndex];
+        //strData = new string[MetaData.strIndex];
         floatData = new float[MetaData.floatIndex];
         for (int i = 0; i < temp.Length; i++)
         {
@@ -26,12 +26,12 @@ public struct Data
             {
                 floatData[floatIndex] = f;
                 floatIndex++;
-            }
+            }/*
             else
             {
                 strData[strIndex] = temp[i];
                 strIndex++;
-            }
+            }*/
         }
     }
 }
