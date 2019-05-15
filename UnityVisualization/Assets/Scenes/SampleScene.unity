@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -174,6 +174,8 @@ MonoBehaviour:
   axisSetting: {fileID: 953539155}
   dropdown: {fileID: 1563504773}
   InputText: {fileID: 1734380818}
+  axisModel: {fileID: 796796566}
+  axisSpace: {fileID: 883329333}
 --- !u!114 &91712027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1211,6 +1213,7 @@ Transform:
   - {fileID: 1413598971}
   - {fileID: 796796567}
   - {fileID: 839371233}
+  - {fileID: 883329334}
   m_Father: {fileID: 91712025}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1234,7 +1237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &796796567
 Transform:
   m_ObjectHideFlags: 0
@@ -1262,7 +1265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 534669904}
-  value: 1
+  index: 1
   myRenderer: {fileID: 796796572}
 --- !u!135 &796796569
 SphereCollider:
@@ -1543,6 +1546,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875433936}
   m_CullTransparentMesh: 0
+--- !u!1 &883329333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 883329334}
+  m_Layer: 0
+  m_Name: axis_space
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &883329334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883329333}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 726170351}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &953539150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1765,7 +1798,7 @@ MonoBehaviour:
   picker: {fileID: 702257190}
   uiCamera: {fileID: 1171176382}
   material: {fileID: 2100000, guid: c1a77d1f6e7c2498989bf090053131eb, type: 2}
-  gradationMaterial: {fileID: 2100000, guid: 2c57436fa08e343baaa9187c5de29d2d, type: 2}
+  gradationMaterial: {fileID: 2100000, guid: be8fa37edb4b846ceada1b8bcba2b1a1, type: 2}
 --- !u!135 &969351286
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2690,10 +2723,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1413598971}
   - component: {fileID: 1413598974}
-  - component: {fileID: 1413598973}
   - component: {fileID: 1413598972}
   m_Layer: 9
-  m_Name: Axis_Sphere
+  m_Name: axis_sphere
   m_TagString: axis_sphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2726,43 +2758,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1413598973
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1413598970}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 135f730c32ab54bd89e14fd07764bcff, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &1413598974
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2939,7 +2934,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c57436fa08e343baaa9187c5de29d2d, type: 2}
+  - {fileID: 2100000, guid: be8fa37edb4b846ceada1b8bcba2b1a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

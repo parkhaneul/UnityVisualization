@@ -18,8 +18,8 @@ public class AxisSetting : MonoBehaviour
 	public void SetAxis(int _index)
     {
         index = _index;
-        currentAxis = SetDropDown.myAxis[index];
-		
+        currentAxis = AxisDataManager.Instance().GetAxis(index);
+
         ChangePropertiesInfo();
     }
 
@@ -27,7 +27,7 @@ public class AxisSetting : MonoBehaviour
     {
 		foreach(Transform p in propertyListContent.transform)
 		{
-			GameObject.Destroy(p.gameObject);
+			Destroy(p.gameObject);
 		}
 		propertySettings.Clear();
 		for (int i = 0; i < currentAxis.weights.Count; i++)
@@ -49,14 +49,18 @@ public class AxisSetting : MonoBehaviour
 		Weight w = new Weight();
 		w.propertyIndex = 0;
 		w.weight = 0;
-		SetDropDown.myAxis[index].weights.Add(w);
+
+        var myAxis = AxisDataManager.Instance();
+        var temp = myAxis.GetAxis(index);
+        temp.weights.Add(w);
+        myAxis.ChangeAxisAt(index, temp);
 
 		ActiveProperty(w);
 	}
 
 	private void ActiveProperty(Weight w)
 	{
-		GameObject g = GameObject.Instantiate(propertyController);
+		GameObject g = Instantiate(propertyController);
 		g.transform.parent = propertyListContent.transform;
 		g.transform.localScale = Vector3.one;
 		g.GetComponent<propertySetting>().dropdown.value = w.propertyIndex;
@@ -68,12 +72,12 @@ public class AxisSetting : MonoBehaviour
 
 	public static void DeleteProperty(int index)
 	{
-		GameObject.Destroy(propertySettings[index].gameObject);
+		Destroy(propertySettings[index].gameObject);
 		propertySettings.RemoveAt(index);
 		for (int i = 0; i < propertySettings.Count; i++)
 		{
 			propertySettings[i].SettingIndex = i;
-			Debug.Log(i + "::" + SetDropDown.myAxis[AxisSetting.index].weights[i].propertyIndex + "::" + SetDropDown.myAxis[AxisSetting.index].weights[i].weight);
+			//Debug.Log(i + "::" + SetDropDown.myAxis[AxisSetting.index].weights[i].propertyIndex + "::" + SetDropDown.myAxis[AxisSetting.index].weights[i].weight);
 		}
 	}
 }

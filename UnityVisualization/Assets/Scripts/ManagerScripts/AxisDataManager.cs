@@ -30,6 +30,11 @@ public class AxisDataManager{
 		axisArray.Add(newAxis);
 	}
 
+    public void AddAxis(Axis axis)
+    {
+        axisArray.Add(axis);
+    }
+
     public Axis GetAxis(int index)
     {
         return axisArray[index];
@@ -53,5 +58,12 @@ public class AxisDataManager{
     public void ChangeAxisAt(int index, Axis axis)
 	{
         axisArray[index] = axis;
+    }
+
+    public void changeVectorAt(int index, Vector3 vector)
+    {
+        var temp = GetAxis(index);
+        temp.vector = vector;
+        ChangeAxisAt(index, temp);
     }
 }

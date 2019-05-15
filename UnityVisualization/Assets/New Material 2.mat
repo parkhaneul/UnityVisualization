@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ColorGradation
+  m_Name: New Material 2
   m_Shader: {fileID: 4800000, guid: b8cb0000f84e04d2ea5602f876fc523c, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -73,13 +73,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-<<<<<<< HEAD
-<<<<<<< HEAD
-    - _Color: {r: 1, g: 0, b: 0.019490719, a: 1}
-=======
-    - _Color: {r: 0, g: 0.5549822, b: 1, a: 1}
->>>>>>> parent of 3c1c5f8... UI update
-=======
-    - _Color: {r: 0, g: 0.5549822, b: 1, a: 1}
->>>>>>> parent of 3c1c5f8... UI update
+    - _Color: {r: 1, g: 0, b: 0.54791164, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

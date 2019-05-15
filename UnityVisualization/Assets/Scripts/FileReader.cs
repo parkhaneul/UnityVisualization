@@ -27,15 +27,8 @@ public class FileReader : MonoBehaviour {
 
             header = new Header(lines[0]);
             dataList = new Data[lines.Length - 1];
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
             meta = new MetaData(lines[1]);
->>>>>>> parent of 3c1c5f8... UI update
-=======
             meta = new MetaData(lines[1]);
->>>>>>> parent of 3c1c5f8... UI update
             for (int i = 1; i < lines.Length; i++)
 			{
                 dataList[i-1] = new Data(lines[i]);

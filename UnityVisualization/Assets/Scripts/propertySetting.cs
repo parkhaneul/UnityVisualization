@@ -15,6 +15,7 @@ public class propertySetting : MonoBehaviour
 
     public void Start()
     {
+        dropdown.options.RemoveAll(null);
         for(int i = 0; i < MetaData.floatArray.Length; i++)
         {
             var temp = new Dropdown.OptionData(Header.data[MetaData.floatArray[i]]);
@@ -25,16 +26,22 @@ public class propertySetting : MonoBehaviour
     public void changeValue()
     {
         text.text = slider.value.ToString();
-		Weight temp = SetDropDown.myAxis[AxisSetting.index].weights[SettingIndex];
-		temp.propertyIndex = dropdown.value;
-		temp.weight = slider.value;
-		SetDropDown.myAxis[AxisSetting.index].weights[SettingIndex] = temp;
+        var myAxis = AxisDataManager.Instance();
+        var temp = myAxis.GetAxis(AxisSetting.index);
+        var weight = myAxis.GetAxis(AxisSetting.index).weights[SettingIndex];
+		weight.propertyIndex = dropdown.value;
+		weight.weight = slider.value;
+        temp.weights[SettingIndex] = weight;
+        myAxis.ChangeAxisAt(AxisSetting.index, temp);
 	}
 
 
 	public void OnClickMinusButton()
 	{
-		SetDropDown.myAxis[AxisSetting.index].weights.RemoveAt(SettingIndex);
-		AxisSetting.DeleteProperty(SettingIndex);
+        var myAxis = AxisDataManager.Instance();
+        var temp = myAxis.GetAxis(AxisSetting.index);
+        temp.weights.RemoveAt(SettingIndex);
+        myAxis.ChangeAxisAt(AxisSetting.index, temp);
+        AxisSetting.DeleteProperty(SettingIndex);
 	}
 }
