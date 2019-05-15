@@ -1,0 +1,34 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel dataVisualization
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+struct Data{
+    float4 _color;
+    float3 position;
+    float data[500];
+};
+
+uint axisCount;
+
+struct Axis{
+    float4 _color;
+    float3 _vector;
+    int indexs[10];
+    float weights[10];
+};
+
+RWStructuredBuffer<Data> computeBuffer;
+RWStructuredBuffer<Axis> axisBuffer;
+
+[numthreads(32,32,1)]
+void dataVisualization(uint3 id : SV_DispatchThreadID)
+{
+    for(int i = 0; i < axisCount; i++){
+        float3 position = axisBuffer[i]._vector;
+        for(int j = 0; j < 10; j++){
+            computeBuffer[id.x].position += position * computeBuffer[id.x].data[axisBuffer[i].indexs[j]] * axisBuffer[i].weights[j];
+        }
+        computeBuffer[id.x]._color += axisBuffer[i]._color;
+    }
+}

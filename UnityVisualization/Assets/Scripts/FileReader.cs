@@ -11,7 +11,7 @@ public class FileReader : MonoBehaviour {
 
     static Header header;
     static MetaData meta;
-    static Data[] dataList;
+    public static Data[] dataList;
 
 	private string filePath = "Assets/Resources/";
     //경로에 파일 넣으시고 파일 이름 .csv dataName에 명시해주세요.
@@ -27,7 +27,15 @@ public class FileReader : MonoBehaviour {
 
             header = new Header(lines[0]);
             dataList = new Data[lines.Length - 1];
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
             meta = new MetaData(lines[1]);
+>>>>>>> parent of 3c1c5f8... UI update
+=======
+            meta = new MetaData(lines[1]);
+>>>>>>> parent of 3c1c5f8... UI update
             for (int i = 1; i < lines.Length; i++)
 			{
                 dataList[i-1] = new Data(lines[i]);
