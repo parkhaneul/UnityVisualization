@@ -34,7 +34,7 @@ public class DataVisualization : MonoBehaviour
     void OnRenderObject()
     {
         material.SetPass(0);
-        Graphics.DrawProcedural(MeshTopology.Points, 1, maxParticle);
+        Graphics.DrawProceduralNow(MeshTopology.Points, 1, maxParticle);
     }
 
     void OnDestroy()

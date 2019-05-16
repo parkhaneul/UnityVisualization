@@ -17,7 +17,7 @@ public class ColorPickerTest : MonoBehaviour
 
 	void DrawRectangle(Rect position, Color color)
 	{
-		// We shouldn't draw until we are told to do so.
+		// We shouldn't draw until we are told to do so
 		if (Event.current.type != EventType.Repaint)
 			return;
 
