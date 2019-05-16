@@ -18,7 +18,6 @@
             struct Data{
                 float4 _color;
                 float3 position;
-                float data[500];
             };
             
             struct PS_INPUT {

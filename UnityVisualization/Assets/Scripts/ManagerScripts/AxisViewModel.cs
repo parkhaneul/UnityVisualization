@@ -54,7 +54,7 @@ public class AxisViewModel : MonoBehaviour {
 	{
 		InputText.text = InputText.text;
 		Axis temp = AxisDataManager.Instance().GetAxis(axisIndex);
-		temp.name = InputText.text;
+//		temp.name = InputText.text;
 		SetAxis(temp);
 		dropdown.options[dropdown.value].text = InputText.text;
 	}

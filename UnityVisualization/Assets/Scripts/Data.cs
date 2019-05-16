@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
-
+using System.Runtime.InteropServices;
 
 public struct Data
+{
+    Color _color;
+    Vector3 position;
+}
+
+/*public struct Data
 {
     //public string[] strData;
     public float[] floatData;
@@ -31,10 +37,10 @@ public struct Data
             {
                 strData[strIndex] = temp[i];
                 strIndex++;
-            }*/
+            }
         }
     }
-}
+}*/
 
 public struct Axis
 {

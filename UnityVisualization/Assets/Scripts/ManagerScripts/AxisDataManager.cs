@@ -6,7 +6,13 @@ public class AxisDataManager{
     private static AxisDataManager _instance;
     private List<Axis> axisArray = new List<Axis>();
 
-	public static AxisDataManager Instance()
+    public struct AxisData
+    {
+        public Color _color;
+        public Vector3 _vector;
+    }
+
+    public static AxisDataManager Instance()
     {
         if(_instance == null)
         {
@@ -15,7 +21,35 @@ public class AxisDataManager{
         return _instance;
     }
 
-	public int GetAxisCount()
+    public AxisData[] GetAxisDatas()
+    {
+        AxisData[] data = new AxisData[axisArray.Count];
+
+        for(int i = 0; i < axisArray.Count; i++)
+        {
+            data[i]._color = axisArray[i].color;
+            data[i]._vector = axisArray[i].vector;
+        }
+
+        return data;
+    }
+
+    public Weight[] GetWeights()
+    {
+        Weight[] data = new Weight[axisArray.Count * 10];
+
+        for(int i = 0; i < axisArray.Count-1; i++)
+        {
+            for(int index = 0; i < axisArray[i].weights.Count; i++)
+            {
+                data[i * 10 + index] = axisArray[i].weights[index];
+            }
+        }
+
+        return data;
+    }
+
+    public int GetAxisCount()
     {
         return axisArray.Count;
     }

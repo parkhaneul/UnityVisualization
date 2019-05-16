@@ -15,7 +15,6 @@ public class propertySetting : MonoBehaviour
 
     public void Start()
     {
-        dropdown.options.RemoveAll(null);
         for(int i = 0; i < MetaData.floatArray.Length; i++)
         {
             var temp = new Dropdown.OptionData(Header.data[MetaData.floatArray[i]]);

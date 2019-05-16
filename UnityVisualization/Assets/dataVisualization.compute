@@ -6,7 +6,6 @@
 struct Data{
     float4 _color;
     float3 position;
-    float data[500];
 };
 
 uint axisCount;
@@ -14,12 +13,17 @@ uint axisCount;
 struct Axis{
     float4 _color;
     float3 _vector;
-    int indexs[10];
-    float weights[10];
+};
+
+struct Weight{
+    int propertyIndex;
+    float weight;   
 };
 
 RWStructuredBuffer<Data> computeBuffer;
+RWStructuredBuffer<float> floatBuffer;
 RWStructuredBuffer<Axis> axisBuffer;
+RWStructuredBuffer<Weight> weightBuffer;
 
 [numthreads(32,32,1)]
 void dataVisualization(uint3 id : SV_DispatchThreadID)
@@ -27,8 +31,9 @@ void dataVisualization(uint3 id : SV_DispatchThreadID)
     for(int i = 0; i < axisCount; i++){
         float3 position = axisBuffer[i]._vector;
         for(int j = 0; j < 10; j++){
-            computeBuffer[id.x].position += position * computeBuffer[id.x].data[axisBuffer[i].indexs[j]] * axisBuffer[i].weights[j];
+            computeBuffer[id.x].position += position * floatBuffer[id.x * 200 + weightBuffer[i * 10 + j].propertyIndex] * weightBuffer[i * 10 + j].weight;
         }
         computeBuffer[id.x]._color += axisBuffer[i]._color;
     }
+    computeBuffer[id.x].position = computeBuffer[id.x].position / axisCount;
 }
