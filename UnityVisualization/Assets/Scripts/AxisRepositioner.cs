@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AxisRepositioner : MonoBehaviour
 {
     public Camera view;
     public int index = 1;
     public LineRenderer myRenderer;
+	public Text nameLabel;
     private bool isClicked = false;
 
     Ray ray;
@@ -58,8 +60,18 @@ public class AxisRepositioner : MonoBehaviour
             {
                 isClicked = false;
             }
-        }
+			DrawName();
+		}
+
+
+		
     }
+
+	void DrawName()
+	{
+		Vector3 namePos = view.WorldToScreenPoint(this.transform.position);
+		nameLabel.transform.position = namePos;
+	}
 
     void OnDrawGizmos()
     {
