@@ -40,12 +40,11 @@ public class AxisDataManager{
     {
         AxisData[] data = new AxisData[sampleSize];
 
-        data[0]._color = Color.blue;
-        data[0]._vector = new Vector3(10, 10, 0);
-        data[1]._color = Color.red;
-        data[1]._vector = new Vector3(20,-10, 0);
-        data[2]._color = Color.green;
-        data[2]._vector = new Vector3(-10, -10, 0);
+        for(int i = 0; i < sampleSize; i++)
+        {
+            data[i]._vector = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), Random.Range(-30, 30));
+            data[i]._color = Color.blue;
+        }
         return data;   
     }
 

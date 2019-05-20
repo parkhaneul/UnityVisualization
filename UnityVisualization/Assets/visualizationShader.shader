@@ -30,7 +30,7 @@
             PS_INPUT vert(uint vertex_id : SV_VertexID, uint instance_id : SV_InstanceID) {
                 PS_INPUT o = (PS_INPUT)0;
 
-                o.color = computeBuffer[instance_id]._color;
+                o.color = float4(1,1,1,1);//computeBuffer[instance_id]._color;
                 o.position = UnityObjectToClipPos(float4(computeBuffer[instance_id].position, 1.0f));
 
                 return o;

@@ -5,6 +5,10 @@ using UnityEngine;
 public class DataVisualization : MonoBehaviour
 {
     public ComputeBuffer computeBuffer;
+    public ComputeBuffer axisBuffer;
+    public ComputeBuffer weightBuffer;
+    public ComputeBuffer floatBuffer;
+
     public ComputeShader computeShader;
     private int mComputeShaderKernelID;
 
@@ -30,7 +34,7 @@ public class DataVisualization : MonoBehaviour
         computeBuffer = new ComputeBuffer(maxParticle, particleSize);
         computeBuffer.SetData(FileReader.dataList);
 
-        ComputeBuffer floatBuffer = new ComputeBuffer(maxParticle * 50, 4);
+        floatBuffer = new ComputeBuffer(maxParticle * 50, 4);
         floatBuffer.SetData(FileReader.floatList);
         computeShader.SetBuffer(mComputeShaderKernelID, "floatBuffer", floatBuffer);
         computeShader.SetBuffer(mComputeShaderKernelID, "computeBuffer", computeBuffer);
@@ -41,14 +45,18 @@ public class DataVisualization : MonoBehaviour
     void OnRenderObject()
     {
         material.SetPass(0);
-        //Graphics.DrawMesh(mesh, Vector3.zero, Quaternion.identity, material, 0);
-        Graphics.DrawProceduralNow(MeshTopology.Points, 1, maxParticle);
+        Graphics.DrawProceduralNow(MeshTopology.Points,1,maxParticle);
+        //Graphics.DrawProceduralIndirectNow(MeshTopology.Points,computeBuffer);
     }
 
     void OnDestroy()
     {
-        if (computeBuffer != null)
+        if (computeBuffer != null) {
             computeBuffer.Release();
+            axisBuffer.Release();
+            weightBuffer.Release();
+            floatBuffer.Release();
+        }
     }
 
     public void changeAxis()
@@ -59,17 +67,17 @@ public class DataVisualization : MonoBehaviour
         computeShader.SetInt("axisCount", axisParticle);
 
         var axisData = manager.GetAxisSamples();
-        ComputeBuffer axisBuffer = new ComputeBuffer(axisParticle, axisSize);
+        axisBuffer = new ComputeBuffer(axisParticle, axisSize);
         axisBuffer.SetData(axisData);
 
         var weightData = manager.GetSampleWeights();
         weightParticle = weightData.Length;
-        ComputeBuffer weightBuffer = new ComputeBuffer(weightParticle, weightSize);
+        weightBuffer = new ComputeBuffer(weightParticle, weightSize);
         weightBuffer.SetData(weightData);
 
         computeShader.SetBuffer(mComputeShaderKernelID, "weightBuffer", weightBuffer);
         computeShader.SetBuffer(mComputeShaderKernelID, "axisBuffer", axisBuffer);
-        computeShader.Dispatch(mComputeShaderKernelID, 8, 8, 8);
+        computeShader.Dispatch(mComputeShaderKernelID, 32, 32, 1);
         material.SetBuffer("computeBuffer", computeBuffer);
     }
 }
