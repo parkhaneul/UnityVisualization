@@ -27,7 +27,7 @@ public class propertySetting : MonoBehaviour
         text.text = slider.value.ToString();
         var myAxis = AxisDataManager.Instance();
         var temp = myAxis.GetAxis(AxisSetting.index);
-        var weight = myAxis.GetAxis(AxisSetting.index).weights[SettingIndex];
+        var weight = temp.weights[SettingIndex];
 		weight.propertyIndex = dropdown.value;
 		weight.weight = slider.value;
         temp.weights[SettingIndex] = weight;
@@ -43,4 +43,12 @@ public class propertySetting : MonoBehaviour
         myAxis.ChangeAxisAt(AxisSetting.index, temp);
         AxisSetting.DeleteProperty(SettingIndex);
 	}
+
+    public void setWeight(Weight w)
+    {
+        dropdown.value = w.propertyIndex;
+        slider.value = w.weight;
+        text.text = w.weight.ToString();
+        dropdown.RefreshShownValue();
+    }
 }

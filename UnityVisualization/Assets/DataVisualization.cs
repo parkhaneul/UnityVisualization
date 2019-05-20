@@ -14,7 +14,7 @@ public class DataVisualization : MonoBehaviour
     private int maxParticle;
     private int particleSize = 16 + 12;
 
-    private int dataSize = 4;
+    //private int dataSize = 4;
 
     private int axisParticle;
     private int axisSize = 12 + 16;
@@ -25,7 +25,7 @@ public class DataVisualization : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxParticle = FileReader.dataList.Length;
+        maxParticle = FileReader.dataList.Length+1;
         mComputeShaderKernelID = computeShader.FindKernel("dataVisualization");
         computeBuffer = new ComputeBuffer(maxParticle, particleSize);
         computeBuffer.SetData(FileReader.dataList);
@@ -41,8 +41,8 @@ public class DataVisualization : MonoBehaviour
     void OnRenderObject()
     {
         material.SetPass(0);
-        Graphics.DrawMesh(mesh, Vector3.zero, Quaternion.identity, material, 0);
-        //Graphics.DrawProceduralNow(MeshTopology.Points, 1, maxParticle);
+        //Graphics.DrawMesh(mesh, Vector3.zero, Quaternion.identity, material, 0);
+        Graphics.DrawProceduralNow(MeshTopology.Points, 1, maxParticle);
     }
 
     void OnDestroy()
@@ -69,13 +69,7 @@ public class DataVisualization : MonoBehaviour
 
         computeShader.SetBuffer(mComputeShaderKernelID, "weightBuffer", weightBuffer);
         computeShader.SetBuffer(mComputeShaderKernelID, "axisBuffer", axisBuffer);
-        computeShader.Dispatch(mComputeShaderKernelID, 512, 1, 1);
+        computeShader.Dispatch(mComputeShaderKernelID, 8, 8, 8);
         material.SetBuffer("computeBuffer", computeBuffer);
     }
-
-    /*
-    void Update()
-    {
-        changeAxis();
-    }*/
 }

@@ -9,7 +9,6 @@ public class PropertyListContent : MonoBehaviour
 
 	public void OnClickAddPropertySelector()
 	{
-
 		GameObject g = GameObject.Instantiate(PropertySelector);
 		g.transform.parent = this.transform;
 		g.transform.localScale = Vector3.one;

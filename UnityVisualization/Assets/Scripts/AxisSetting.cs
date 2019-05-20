@@ -9,7 +9,9 @@ public class AxisSetting : MonoBehaviour
 	public PropertyListContent propertyListContent;
     public GameObject propertyController;
 
-	private static List<propertySetting> propertySettings = new List<propertySetting>();
+    //private static List<propertySetting> propertySettings = new List<propertySetting>();
+    public GameObject parent;
+    private static List<GameObject> parents = new List<GameObject>(1);
 
     private Axis currentAxis;
 	public static int index;
@@ -23,8 +25,25 @@ public class AxisSetting : MonoBehaviour
         ChangePropertiesInfo();
     }
 
+    public void addAxis()
+    {
+        var o = Instantiate(parent);
+        parents.Add(o);
+    }
+
+    public void removeAxis()
+    {
+        parents.RemoveAt(index);
+    }
+
     private void ChangePropertiesInfo()
     {
+        foreach(GameObject o in parents)
+        {
+            o.SetActive(false);
+        }
+        parents[index].SetActive(true);
+        /*
 		foreach(Transform p in propertyListContent.transform)
 		{
 			Destroy(p.gameObject);
@@ -33,16 +52,8 @@ public class AxisSetting : MonoBehaviour
 		for (int i = 0; i < currentAxis.weights.Count; i++)
 		{
 			ActiveProperty(currentAxis.weights[i]);
-		}
-		//Struct 배열에서 foreach 사용말자...ㅠㅠ
-		/*
-		foreach (Weight w in currentAxis.weights)
-		{
-			Debug.Log(w.propertyIndex + " :: " + w.weight);
-			ActiveProperty(w);
-		}
-		*/
-	}
+		}*/
+    }
 
 	public void OnClickAddPropertySelector()
 	{
@@ -61,23 +72,18 @@ public class AxisSetting : MonoBehaviour
 	private void ActiveProperty(Weight w)
 	{
 		GameObject g = Instantiate(propertyController);
-		g.transform.parent = propertyListContent.transform;
-		g.transform.localScale = Vector3.one;
-		g.GetComponent<propertySetting>().dropdown.value = w.propertyIndex;
-		g.GetComponent<propertySetting>().slider.value = w.weight;
-		g.GetComponent<propertySetting>().text.text = w.weight.ToString();
-		g.GetComponent<propertySetting>().SettingIndex = propertySettings.Count;
-		propertySettings.Add(g.GetComponent<propertySetting>());
+		g.transform.SetParent(parents[index].transform);
+		//g.transform.localScale = Vector3.one;
+		g.GetComponent<propertySetting>().setWeight(w);
+        g.GetComponent<propertySetting>().SettingIndex = index;
 	}
 
-	public static void DeleteProperty(int index)
+	public static void DeleteProperty(int _index)
 	{
-		Destroy(propertySettings[index].gameObject);
-		propertySettings.RemoveAt(index);
-		for (int i = 0; i < propertySettings.Count; i++)
+		Destroy(parents[index].transform.GetChild(_index));
+		for (int i = 0; i < parents[index].transform.childCount; i++)
 		{
-			propertySettings[i].SettingIndex = i;
-			//Debug.Log(i + "::" + SetDropDown.myAxis[AxisSetting.index].weights[i].propertyIndex + "::" + SetDropDown.myAxis[AxisSetting.index].weights[i].weight);
+			parents[index].transform.GetChild(_index).GetComponent<propertySetting>().SettingIndex = i;
 		}
 	}
 }
