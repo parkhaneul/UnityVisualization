@@ -55,14 +55,14 @@ public class DataVisualization : MonoBehaviour
     {
         var manager = AxisDataManager.Instance();
 
-        axisParticle = manager.GetAxisCount();
+        axisParticle = manager.GetAxisSampleCount();
         computeShader.SetInt("axisCount", axisParticle);
 
-        var axisData = manager.GetAxisDatas();
+        var axisData = manager.GetAxisSamples();
         ComputeBuffer axisBuffer = new ComputeBuffer(axisParticle, axisSize);
         axisBuffer.SetData(axisData);
 
-        var weightData = manager.GetWeights();
+        var weightData = manager.GetSampleWeights();
         weightParticle = weightData.Length;
         ComputeBuffer weightBuffer = new ComputeBuffer(weightParticle, weightSize);
         weightBuffer.SetData(weightData);

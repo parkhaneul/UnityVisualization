@@ -97,9 +97,6 @@ public class AxisViewModel : MonoBehaviour {
 		g.GetComponent<WeightSettingModel>().dropdown.value = w.propertyIndex;
 		g.GetComponent<WeightSettingModel>().slider.value = w.weight;
 		g.GetComponent<WeightSettingModel>().value.text = w.weight.ToString();
-		
-		
-		
 	}
 
     public void SetAxis(Axis _axis)

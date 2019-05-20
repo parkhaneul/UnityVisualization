@@ -6,6 +6,8 @@ public class AxisDataManager{
     private static AxisDataManager _instance;
     private List<Axis> axisArray = new List<Axis>();
 
+    private int sampleSize = 10;
+
     public struct AxisData
     {
         public Color _color;
@@ -34,6 +36,36 @@ public class AxisDataManager{
         return data;
     }
 
+    public AxisData[] GetAxisSamples()
+    {
+        AxisData[] data = new AxisData[sampleSize];
+
+        data[0]._color = Color.blue;
+        data[0]._vector = new Vector3(10, 10, 0);
+        data[1]._color = Color.red;
+        data[1]._vector = new Vector3(20,-10, 0);
+        data[2]._color = Color.green;
+        data[2]._vector = new Vector3(-10, -10, 0);
+        return data;   
+    }
+
+    public Weight[] GetSampleWeights()
+    {
+        Weight[] data = new Weight[sampleSize * 10];
+
+        for (int i = 0; i < sampleSize-1; i++)
+        {
+            for (int index = 0; i < 10; i++)
+            {
+                data[i * 10 + index] = new Weight();
+                data[i * 10 + index].propertyIndex = Random.Range(0, 3);
+                data[i * 10 + index].weight = Random.Range(0, 1);
+            }
+        }
+
+        return data;
+    }
+
     public Weight[] GetWeights()
     {
         Weight[] data = new Weight[axisArray.Count * 10];
@@ -54,8 +86,13 @@ public class AxisDataManager{
         return axisArray.Count;
     }
 
-	//초기 Axis 설정
-	public void AddAxis() {
+    public int GetAxisSampleCount()
+    {
+        return sampleSize;
+    }
+
+    //초기 Axis 설정
+    public void AddAxis() {
 		Axis newAxis = new Axis();
 		newAxis.vector = new Vector3(0, 0, 0);
 		newAxis.color = new Color(0, 0, 0);

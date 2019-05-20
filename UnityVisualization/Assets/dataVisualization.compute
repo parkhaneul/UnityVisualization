@@ -25,15 +25,20 @@ RWStructuredBuffer<float> floatBuffer;
 RWStructuredBuffer<Axis> axisBuffer;
 RWStructuredBuffer<Weight> weightBuffer;
 
-[numthreads(32,32,1)]
+[numthreads(8,8,8)]
 void dataVisualization(uint3 id : SV_DispatchThreadID)
 {
+    //for(int i = 0; i < axisCount; i++){
+    //    float3 position = axisBuffer[i]._vector;
+    //    for(int j = 0; j < 10; j++){
+    //        computeBuffer[id.x].position += position * floatBuffer[id.x * 200 + weightBuffer[i * 10 + j].propertyIndex] * weightBuffer[i * 10 + j].weight;
+    //    }
+    //    computeBuffer[id.x]._color += axisBuffer[i]._color;
+    //}
+    //computeBuffer[id.x].position = computeBuffer[id.x].position / axisCount;
     for(int i = 0; i < axisCount; i++){
-        float3 position = axisBuffer[i]._vector;
-        for(int j = 0; j < 10; j++){
-            computeBuffer[id.x].position += position * floatBuffer[id.x * 200 + weightBuffer[i * 10 + j].propertyIndex] * weightBuffer[i * 10 + j].weight;
-        }
+        computeBuffer[id.x].position += axisBuffer[i]._vector;
         computeBuffer[id.x]._color += axisBuffer[i]._color;
     }
-    computeBuffer[id.x].position = computeBuffer[id.x].position / axisCount;
+    computeBuffer[id.x]._color = computeBuffer[id.x]._color / axisCount;
 }

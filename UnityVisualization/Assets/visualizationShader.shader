@@ -26,13 +26,11 @@
             };
             
             StructuredBuffer<Data> computeBuffer;
-            int axisCount;
             
             PS_INPUT vert(uint vertex_id : SV_VertexID, uint instance_id : SV_InstanceID) {
                 PS_INPUT o = (PS_INPUT)0;
 
-                float4 color = computeBuffer[instance_id]._color / axisCount;
-                o.color = color;
+                o.color = computeBuffer[instance_id]._color;
                 o.position = UnityObjectToClipPos(float4(computeBuffer[instance_id].position, 1.0f));
 
                 return o;
