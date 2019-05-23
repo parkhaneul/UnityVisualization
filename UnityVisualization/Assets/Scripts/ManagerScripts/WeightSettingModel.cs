@@ -42,7 +42,7 @@ public class WeightSettingModel : MonoBehaviour
 
 	public void OnChangePropertyIndex()
 	{
-		Weight temp = axisViewModel.GetWeight(weightIndex);
+        Weight temp = axisViewModel.GetWeight(weightIndex);
 		temp.propertyIndex = dropdown.value;
 		axisViewModel.SetWeight(weightIndex, temp);
 		

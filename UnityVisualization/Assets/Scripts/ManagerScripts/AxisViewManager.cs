@@ -58,8 +58,6 @@ public class AxisViewManager : MonoBehaviour {
 		propertyControllers.Add(new List<WeightSettingModel>());
 	}
 
-
-
 	public void DeleteAxis()
 	{
 		if (axisIndex > 0)
@@ -122,16 +120,14 @@ public class AxisViewManager : MonoBehaviour {
 		}
     }
 
-	
-
 	private void AddWeightSettingObject(Weight w)
 	{
 		Debug.Log("AddWeight");
-		GameObject g = GameObject.Instantiate(propertyController);
+		GameObject g = Instantiate(propertyController);
 		g.transform.SetParent(this.transform);
 		g.transform.localScale = Vector3.one;
 		g.SetActive(true);
-		g.GetComponent<WeightSettingModel>().SetWeightIndex(propertyControllers.Count);
+		g.GetComponent<WeightSettingModel>().SetWeightIndex(propertyControllers[axisIndex].Count);
 		g.GetComponent<WeightSettingModel>().axisViewModel = this;
 		propertyControllers[axisIndex].Add(g.GetComponent<WeightSettingModel>());
 		g.GetComponent<WeightSettingModel>().dropdown.value = w.propertyIndex;
@@ -197,11 +193,11 @@ public class AxisViewManager : MonoBehaviour {
 	//Weight 초기 값 설정
     public void AddWeight()
     {
-		Weight w = new Weight();
-		w.propertyIndex = 0;
-		w.weight = 0;
+        Weight w = new Weight();
+        w.propertyIndex = 0;
+        w.weight = 0;
 
-		var axis = GetAxis();
+        var axis = GetAxis();
         axis.weights.Add(w);
         SetAxis(axis);
     }
@@ -213,9 +209,9 @@ public class AxisViewManager : MonoBehaviour {
 		SetAxis(axis);
 
 		GameObject.Destroy(propertyControllers[axisIndex][_index].gameObject);
-		propertyControllers.RemoveAt(_index);
+		propertyControllers[axisIndex].RemoveAt(_index);
 
-		for(int i = 0; i < propertyControllers.Count; i++) {
+		for(int i = 0; i < propertyControllers[axisIndex].Count; i++) {
 			propertyControllers[axisIndex][i].GetComponent<WeightSettingModel>().SetWeightIndex(i);
 		}
 	}
@@ -227,6 +223,7 @@ public class AxisViewManager : MonoBehaviour {
 
     public Weight GetWeight(int index)
     {
+        Debug.Log("Error Point2 : " + index);
         return GetAxis().weights[index];
     }
 

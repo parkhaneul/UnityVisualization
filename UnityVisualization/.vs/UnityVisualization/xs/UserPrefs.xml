@@ -1,10 +1,13 @@
 ﻿<Properties StartupConfiguration="{81A5EB19-1B89-638B-3EE8-1BFBD491B973}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ManagerScripts/AxisDataManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ManagerScripts/WeightSettingModel.cs">
     <Files>
       <File FileName="Assets/DataVisualization.cs" Line="61" Column="46" />
       <File FileName="Assets/visualizationShader.shader" Line="1" Column="1" />
       <File FileName="Assets/dataVisualization.compute" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ManagerScripts/AxisDataManager.cs" Line="43" Column="36" />
+      <File FileName="Assets/Scripts/ManagerScripts/AxisViewManager.cs" Line="226" Column="46" />
+      <File FileName="Assets/Scripts/ManagerScripts/WeightSettingModel.cs" Line="46" Column="1" />
+      <File FileName="Assets/Scripts/Data.cs" Line="13" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
