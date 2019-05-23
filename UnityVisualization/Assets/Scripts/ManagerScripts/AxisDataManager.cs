@@ -91,16 +91,6 @@ public class AxisDataManager{
         return sampleSize;
     }
 
-    //초기 Axis 설정
-    public void AddAxis() {
-		Axis newAxis = new Axis();
-		newAxis.vector = new Vector3(0, 0, 0);
-		newAxis.color = new Color(0, 0, 0);
-		newAxis.weights = new List<Weight>();
-		newAxis.name = "new Axis";
-		axisArray.Add(newAxis);
-	}
-
     public void AddAxis(Axis axis)
     {
         axisArray.Add(axis);
@@ -137,4 +127,5 @@ public class AxisDataManager{
         temp.vector = vector;
         ChangeAxisAt(index, temp);
     }
+
 }

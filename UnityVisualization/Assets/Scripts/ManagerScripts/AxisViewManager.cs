@@ -3,42 +3,83 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //property의 상위 오브젝트여야함(listcontent)
-public class AxisViewModel : MonoBehaviour {
+public class AxisViewManager : MonoBehaviour {
 	
 	public Dropdown dropdown;
 	public InputField InputText;
 	public GameObject propertyController;
+	public GameObject axisModel;
+	public GameObject axisSpace;
 
-	private static AxisViewModel _instance;
+	private static AxisViewManager _instance;
 	private int axisIndex;
-	private List<WeightSettingModel> propertyControllers = new List<WeightSettingModel>();
+	private List<List<WeightSettingModel>> propertyControllers = new List<List<WeightSettingModel>>();
+	private List<GameObject> axisList = new List<GameObject>();
 
-	public static AxisViewModel Instance()
+	private void Awake()
 	{
-		if (_instance == null)
-		{
-			_instance = new AxisViewModel();
-		}
+		_instance = this;
+	}
+
+	public static AxisViewManager Instance()
+	{
 		return _instance;
 	}
 
 	private void Start()
 	{
-		AxisDataManager.Instance().AddAxis();
+		AddNewAxis();
 		axisIndex = 0;
 	}
 
 	public void OnClickPlusButton()
 	{
-		//데이터 초기화 이름
-		AxisDataManager.Instance().AddAxis();
-		dropdown.options.Add(new Dropdown.OptionData("new Axis"));
+		AddNewAxis();
 	}
 
 	public void OnClickMinusButton()
 	{
-		if (axisIndex > 0) {
+		DeleteAxis();
+	}
+
+	public void AddNewAxis()
+	{
+		Axis newAxis = new Axis();
+		newAxis.vector = new Vector3(0, 0, 0);
+		newAxis.color = new Color(0, 0, 0);
+		newAxis.weights = new List<Weight>();
+		newAxis.name = "new Axis";
+		AxisDataManager.Instance().AddAxis(newAxis);
+		GameObject temp = Instantiate(axisModel, axisSpace.transform);
+		temp.GetComponent<AxisRepositioner>().index = AxisDataManager.Instance().GetAxisCount()-1;
+		temp.SetActive(true);
+		axisList.Add(temp);
+		dropdown.options.Add(new Dropdown.OptionData("new Axis"));
+		propertyControllers.Add(new List<WeightSettingModel>());
+	}
+
+
+
+	public void DeleteAxis()
+	{
+		if (axisIndex > 0)
+		{
 			AxisDataManager.Instance().RemoveAxisAt(axisIndex);
+			for(int i = 0; i < propertyControllers[axisIndex].Count; i++)
+			{
+				Destroy(propertyControllers[axisIndex][i]);
+			}
+			propertyControllers.RemoveAt(axisIndex);
+
+			int value = dropdown.value;
+			GameObject temp = axisList[value];
+			for(int i = value; i <= AxisDataManager.Instance().GetAxisCount(); i++)
+			{
+				axisList[i].GetComponent<AxisRepositioner>().index -= 1;
+			}
+			axisList.RemoveAt(value);
+			GameObject.Destroy(temp);
+
 			dropdown.options.RemoveAt(axisIndex);
 			dropdown.value = 0;
 			dropdown.RefreshShownValue();
@@ -67,19 +108,17 @@ public class AxisViewModel : MonoBehaviour {
 
 	public void OnChangeAxisIndex()
     {
-        axisIndex = dropdown.value;
+		foreach (WeightSettingModel p in propertyControllers[axisIndex])
+		{
+			p.gameObject.SetActive(false);
+		}
+
+		axisIndex = dropdown.value;
 		InputText.text = GetAxis().name;
 
-		foreach(Transform p in this.transform)
+		foreach(WeightSettingModel p in propertyControllers[axisIndex])
 		{
-			GameObject.Destroy(p.gameObject);
-		}
-		propertyControllers.Clear();
-		
-		for (int i = 0; i < GetAxis().weights.Count; i++)
-		{
-			Debug.Log(i);
-			AddWeightSettingObject(GetWeight(i));
+			p.gameObject.SetActive(true);
 		}
     }
 
@@ -87,21 +126,22 @@ public class AxisViewModel : MonoBehaviour {
 
 	private void AddWeightSettingObject(Weight w)
 	{
-		Debug.Log(w.propertyIndex + "::" + w.weight);
+		Debug.Log("AddWeight");
 		GameObject g = GameObject.Instantiate(propertyController);
 		g.transform.SetParent(this.transform);
 		g.transform.localScale = Vector3.one;
+		g.SetActive(true);
 		g.GetComponent<WeightSettingModel>().SetWeightIndex(propertyControllers.Count);
 		g.GetComponent<WeightSettingModel>().axisViewModel = this;
-		propertyControllers.Add(g.GetComponent<WeightSettingModel>());
+		propertyControllers[axisIndex].Add(g.GetComponent<WeightSettingModel>());
 		g.GetComponent<WeightSettingModel>().dropdown.value = w.propertyIndex;
 		g.GetComponent<WeightSettingModel>().slider.value = w.weight;
 		g.GetComponent<WeightSettingModel>().value.text = w.weight.ToString();
+		Debug.Log(axisIndex);
 	}
 
     public void SetAxis(Axis _axis)
     {
-		Debug.Log("SetAxis" + axisIndex);
 		AxisDataManager.Instance().ChangeAxisAt(axisIndex, _axis);
     }
 
@@ -172,11 +212,11 @@ public class AxisViewModel : MonoBehaviour {
         axis.weights.RemoveAt(_index);
 		SetAxis(axis);
 
-		GameObject.Destroy(propertyControllers[_index].gameObject);
+		GameObject.Destroy(propertyControllers[axisIndex][_index].gameObject);
 		propertyControllers.RemoveAt(_index);
 
 		for(int i = 0; i < propertyControllers.Count; i++) {
-			propertyControllers[i].GetComponent<WeightSettingModel>().SetWeightIndex(i);
+			propertyControllers[axisIndex][i].GetComponent<WeightSettingModel>().SetWeightIndex(i);
 		}
 	}
 
@@ -189,4 +229,15 @@ public class AxisViewModel : MonoBehaviour {
     {
         return GetAxis().weights[index];
     }
+
+	public int GetAxisIndex()
+	{
+		return axisIndex;
+	}
+
+
+	public void changeColor(Color _color)
+	{
+		axisList[axisIndex].GetComponent<MeshRenderer>().material.color = _color;
+	}
 }

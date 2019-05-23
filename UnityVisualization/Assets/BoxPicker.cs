@@ -58,7 +58,7 @@ public class BoxPicker : MonoBehaviour
             this.transform.position = gradationBox.transform.position + new Vector3(x, y, -2);
             var temp = AxisDataManager.Instance().GetAxis(AxisSetting.index);
             temp.color = getColor((x + 16)/32,(y + 16)/32);
-            SetDropDown.changeColor(temp.color);
+            AxisViewManager.Instance().changeColor(temp.color);
             AxisDataManager.Instance().ChangeAxisAt(AxisSetting.index, temp);
         }
         else

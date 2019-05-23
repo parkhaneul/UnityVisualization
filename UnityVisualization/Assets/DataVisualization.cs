@@ -42,7 +42,7 @@ public class DataVisualization : MonoBehaviour
     {
         material.SetPass(0);
         //Graphics.DrawMesh(mesh, Vector3.zero, Quaternion.identity, material, 0);
-        Graphics.DrawProceduralNow(MeshTopology.Points, 1, maxParticle);
+        //Graphics.DrawProceduralNow(MeshTopology.Points, 1, maxParticle);
     }
 
     void OnDestroy()

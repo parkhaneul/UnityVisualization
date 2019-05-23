@@ -8,7 +8,7 @@ public class WeightSettingModel : MonoBehaviour
 	public Dropdown dropdown;
 	public Slider slider;
 	public Text value;
-	public AxisViewModel axisViewModel;
+	public AxisViewManager axisViewModel;
 
 	private int weightIndex;
 

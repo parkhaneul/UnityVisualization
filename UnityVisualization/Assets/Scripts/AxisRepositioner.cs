@@ -20,7 +20,7 @@ public class AxisRepositioner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (index == SetDropDown.currentIndex)
+        if (index == AxisViewManager.Instance().GetAxisIndex())
         {
             RaycastHit hit;
             RaycastHit[] hits;
