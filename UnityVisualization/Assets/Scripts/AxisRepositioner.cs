@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class AxisRepositioner : MonoBehaviour
 {
     public Camera view;
-    public int index = 1;
+	//public int index = 1;
+	public int index = 0;
     public LineRenderer myRenderer;
 	public Text nameLabel;
     private bool isClicked = false;
@@ -66,7 +67,11 @@ public class AxisRepositioner : MonoBehaviour
 
 		
     }
-
+	public void ChangeName(string name)
+	{
+		nameLabel.text = name;
+	}
+	
 	void DrawName()
 	{
 		Vector3 namePos = view.WorldToScreenPoint(this.transform.position);

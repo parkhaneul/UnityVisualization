@@ -10,6 +10,7 @@ public class AxisViewManager : MonoBehaviour {
 	public GameObject propertyController;
 	public GameObject axisModel;
 	public GameObject axisSpace;
+	public GameObject NameLabel;
 
 	private static AxisViewManager _instance;
 	private int axisIndex;
@@ -51,6 +52,10 @@ public class AxisViewManager : MonoBehaviour {
 		newAxis.name = "new Axis";
 		AxisDataManager.Instance().AddAxis(newAxis);
 		GameObject temp = Instantiate(axisModel, axisSpace.transform);
+		GameObject label = Instantiate(NameLabel);
+		label.SetActive(true);
+		label.transform.parent = NameLabel.transform.parent;
+		temp.GetComponent<AxisRepositioner>().nameLabel = label.GetComponent<Text>();
 		temp.GetComponent<AxisRepositioner>().index = AxisDataManager.Instance().GetAxisCount()-1;
 		temp.SetActive(true);
 		axisList.Add(temp);
@@ -93,8 +98,9 @@ public class AxisViewManager : MonoBehaviour {
 	{
 		InputText.text = InputText.text;
 		Axis temp = AxisDataManager.Instance().GetAxis(axisIndex);
-//		temp.name = InputText.text;
+		temp.name = InputText.text;
 		SetAxis(temp);
+		axisList[axisIndex].GetComponent<AxisRepositioner>().ChangeName(temp.name);
 		dropdown.options[dropdown.value].text = InputText.text;
 	}
 

@@ -1191,7 +1191,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &781508298
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1238,7 +1238,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2210,6 +2210,7 @@ MonoBehaviour:
     type: 3}
   axisModel: {fileID: 796796566}
   axisSpace: {fileID: 883329333}
+  NameLabel: {fileID: 781508297}
 --- !u!1 &1171176380
 GameObject:
   m_ObjectHideFlags: 0
@@ -3416,7 +3417,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1100639000}
         m_MethodName: OnNameChange
         m_Mode: 1
         m_Arguments:
