@@ -61,12 +61,12 @@ public class AxisRepositioner : MonoBehaviour
             {
                 isClicked = false;
             }
-			DrawName();
+			
 		}
+		DrawName();
 
 
-		
-    }
+	}
 	public void ChangeName(string name)
 	{
 		nameLabel.text = name;
