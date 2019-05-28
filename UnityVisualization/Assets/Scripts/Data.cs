@@ -11,6 +11,12 @@ public struct Data
     Vector3 position;
 }
 
+public struct Particle
+{
+    public Vector4 _color;
+    public Vector3 position;
+}
+
 /*public struct Data
 {
     //public string[] strData;

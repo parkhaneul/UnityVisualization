@@ -32,19 +32,26 @@ public class FileReader : MonoBehaviour {
 
             dataList = new Data[lines.Length - 1];
             floatList = new float[lines.Length * 50];
+            var count = 0;
 
             for (int i = 1; i < lines.Length; i++)
 			{
-                var temp = Regex.Split(lines[i], FileReader.SPLIT_RE);
-                for(int index = 0; i < temp.Length-1; i++)
+                var temp = Regex.Split(lines[i], ",");
+                var stringCount = 0;
+                for(int index = 0; index < temp.Length; index++)
                 {
-                    string value = temp[i].TrimStart('\"').TrimEnd('\"').Replace("\\", "");
-                    if(float.TryParse(value,out f))
+                    string value = temp[index].TrimStart('\"').TrimEnd('\"').Replace("\\", "");
+                    if (float.TryParse(value,out f))
                     {
-                        floatList[(i - 1) * lines.Length + index] = f;
+                        floatList[(i - 1) * 50 + index - stringCount] = f;
+                    }
+                    else
+                    {
+                        stringCount++;
                     }
                 }
 			}
+            Debug.Log(floatList[1]);
 			file.Close();
 		}
 		catch (IOException e)

@@ -3,42 +3,46 @@
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
-struct Data{
+struct Particle{
     float4 _color;
     float3 position;
 };
 
 uint axisCount;
 
-struct Axis{
-    float4 _color;
-    float3 _vector;
-};
-
 struct Weight{
     int propertyIndex;
     float weight;   
 };
 
-RWStructuredBuffer<Data> computeBuffer;
+struct calculAxis{
+    float4 _color;
+    float3 position;
+};
+
+RWStructuredBuffer<Particle> particleBuffer;
 RWStructuredBuffer<float> floatBuffer;
-RWStructuredBuffer<Axis> axisBuffer;
+RWStructuredBuffer<calculAxis> axisBuffer;
 RWStructuredBuffer<Weight> weightBuffer;
 
-[numthreads(8,8,8)]
+[numthreads(1024,1,1)]
 void dataVisualization(uint3 id : SV_DispatchThreadID)
 {
-    //for(int i = 0; i < axisCount; i++){
-    //    float3 position = axisBuffer[i]._vector;
-    //    for(int j = 0; j < 10; j++){
-    //        computeBuffer[id.x].position += position * floatBuffer[id.x * 200 + weightBuffer[i * 10 + j].propertyIndex] * weightBuffer[i * 10 + j].weight;
-    //    }
-    //    computeBuffer[id.x]._color += axisBuffer[i]._color;
-    //}
-    //computeBuffer[id.x].position = computeBuffer[id.x].position / axisCount;
-    for(int i = 0; i < axisCount; i++){
-        computeBuffer[id.x].position += axisBuffer[i]._vector;
-        computeBuffer[id.x]._color += axisBuffer[i]._color;
+    [loop][allow_uav_condition]
+    for (uint i = 0; i < axisCount; i++)
+    {
+        float3 position = axisBuffer[i].position;
+        float4 color = axisBuffer[i]._color;
+        for(int j = 0; j < 10; j++){
+            particleBuffer[id.x].position += position * floatBuffer[id.x * 50 + weightBuffer[i * 10 + j].propertyIndex] * weightBuffer[i * 10 + j].weight;
+            particleBuffer[id.x]._color += color * floatBuffer[id.x * 50 + weightBuffer[i * 10 + j].propertyIndex] * weightBuffer[i * 10 + j].weight;
+        }
+        //particleBuffer[id.x].position += position;
     }
-    computeBuffer[id.x]._color = computeBuffer[id.x]._color / axisCount;
+    
+        
+    //
+    //particleBuffer[id.x]._color += axisBuffer[i]._color;
+    particleBuffer[id.x].position = particleBuffer[id.x].position / axisCount;
+    particleBuffer[id.x]._color = particleBuffer[id.x]._color / axisCount;
 }

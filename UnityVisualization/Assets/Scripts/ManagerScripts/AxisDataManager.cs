@@ -8,10 +8,10 @@ public class AxisDataManager{
 
     private int sampleSize = 10;
 
-    public struct AxisData
+    public struct calculAxis
     {
-        public Color _color;
-        public Vector3 _vector;
+        public Vector4 _color;
+        public Vector3 position;
     }
 
     public static AxisDataManager Instance()
@@ -23,29 +23,37 @@ public class AxisDataManager{
         return _instance;
     }
 
-    public AxisData[] GetAxisDatas()
+    public calculAxis[] GetAxisDatas()
     {
-        AxisData[] data = new AxisData[axisArray.Count];
+        calculAxis[] data = new calculAxis[axisArray.Count];
 
         for(int i = 0; i < axisArray.Count; i++)
         {
             data[i]._color = axisArray[i].color;
-            data[i]._vector = axisArray[i].vector;
+            data[i].position = axisArray[i].vector;
         }
 
         return data;
     }
 
-    public AxisData[] GetAxisSamples()
+    public calculAxis[] GetAxisSamples()
     {
-        AxisData[] data = new AxisData[sampleSize];
+        calculAxis[] data = new calculAxis[sampleSize];
 
         data[0]._color = Color.blue;
-        data[0]._vector = new Vector3(10, 10, 0);
+        data[0].position = new Vector3(Random.Range(-20,20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
         data[1]._color = Color.red;
-        data[1]._vector = new Vector3(20,-10, 0);
+        data[1].position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
         data[2]._color = Color.green;
-        data[2]._vector = new Vector3(-10, -10, 0);
+        data[2].position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
+        data[3]._color = Color.cyan;
+        data[3].position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
+        data[4]._color = Color.magenta;
+        data[4].position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
+        data[5]._color = Color.yellow;
+        data[5].position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
+        data[6]._color = Color.white;
+        data[6].position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
         return data;   
     }
 
@@ -59,7 +67,7 @@ public class AxisDataManager{
             {
                 data[i * 10 + index] = new Weight();
                 data[i * 10 + index].propertyIndex = Random.Range(0, 3);
-                data[i * 10 + index].weight = Random.Range(0, 1);
+                data[i * 10 + index].weight = Random.Range(0.0f, 1.0f);
             }
         }
 
