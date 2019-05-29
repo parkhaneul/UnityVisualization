@@ -18,6 +18,7 @@ public class BoxPicker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		this.transform.localPosition = new Vector3(-4, 3, 4);
         gameObject.AddComponent<MeshFilter>();
         gameObject.AddComponent<MeshRenderer>();
         Mesh mesh = GetComponent<MeshFilter>().mesh;
