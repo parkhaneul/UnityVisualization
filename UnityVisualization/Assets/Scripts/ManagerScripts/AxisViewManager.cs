@@ -242,5 +242,8 @@ public class AxisViewManager : MonoBehaviour {
 	public void changeColor(Color _color)
 	{
 		axisList[axisIndex].GetComponent<MeshRenderer>().material.color = _color;
+		Axis temp = AxisDataManager.Instance().GetAxis(AxisSetting.index);
+		temp.color = _color;
+		AxisDataManager.Instance().ChangeAxisAt(AxisSetting.index, temp);
 	}
 }
