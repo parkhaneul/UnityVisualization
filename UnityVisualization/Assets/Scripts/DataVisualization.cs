@@ -152,7 +152,11 @@ public class DataVisualization : MonoBehaviour
 
     void OnDestroy()
     {
-    }
+        if(particleBuffer != null)
+        {
+            particleBuffer.Release();
+        }
+}
 
     public void changeAxis()
     {
