@@ -13,11 +13,15 @@ public class BoxPicker : MonoBehaviour
     private bool isClicked = false;
     public Material material;
     public ColorPicker ColorPicker;
+	public static Color nowColor;
     Ray ray;
 
+	private float preX;
+	private float preY;
     // Start is called before the first frame update
     void Start()
     {
+		this.transform.localPosition = new Vector3(-4, 3, 4);
         gameObject.AddComponent<MeshFilter>();
         gameObject.AddComponent<MeshRenderer>();
         Mesh mesh = GetComponent<MeshFilter>().mesh;
@@ -50,16 +54,14 @@ public class BoxPicker : MonoBehaviour
 
         if (isClicked)
         {
-            var vector = uiCamera.ScreenToWorldPoint(Input.mousePosition) - picker.transform.position;
-            var xScale = gradationBox.transform.lossyScale.x;
-            var yScale = gradationBox.transform.lossyScale.z;
-            float x = Mathf.Clamp(vector.x, -xScale * 4, xScale * 4);
-            float y = Mathf.Clamp(vector.y, -yScale * 4, yScale * 4);
-            this.transform.position = gradationBox.transform.position + new Vector3(x, y, -2);
-            var temp = AxisDataManager.Instance().GetAxis(AxisSetting.index);
-            temp.color = getColor((x + 16)/32,(y + 16)/32);
-            AxisViewManager.Instance().changeColor(temp.color);
-            AxisDataManager.Instance().ChangeAxisAt(AxisSetting.index, temp);
+			var vector = uiCamera.ScreenToWorldPoint(Input.mousePosition) - picker.transform.position;
+			var xScale = gradationBox.transform.lossyScale.x;
+			var yScale = gradationBox.transform.lossyScale.z;
+			preX = Mathf.Clamp(vector.x, -xScale * 4, xScale * 4);
+			preY = Mathf.Clamp(vector.y, -yScale * 4, yScale * 4);
+			this.transform.position = gradationBox.transform.position + new Vector3(preX, preY, -2);
+
+			UpdateColor();
         }
         else
         {
@@ -76,6 +78,17 @@ public class BoxPicker : MonoBehaviour
             isClicked = false;
         }
     }
+
+	public void UpdateColor()
+	{
+		var color = ColorPicker.getColor();
+		float h, s, v;
+		Color.RGBToHSV(color, out h, out s, out v);
+		var c = Color.HSVToRGB(h, (preX + 16) / 32, (preY + 16) / 32, true);
+
+		nowColor = c;
+		AxisViewManager.Instance().changeColor(nowColor);
+	}
 
     Vector3 getCircularPosition(int currentDegree, float _radius)
     {
@@ -102,13 +115,5 @@ public class BoxPicker : MonoBehaviour
         }
         return temp;
     }
-
-    Color getColor(float x, float y)
-    {
-        var color = ColorPicker.getColor();
-        float h,s,v;
-        Color.RGBToHSV(color, out h,out s,out v);
-        var c = Color.HSVToRGB(h, x, y, true);
-        return c;
-    }
+	
 }

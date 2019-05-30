@@ -8,6 +8,7 @@ public class ColorPicker : MonoBehaviour
     public float inCircleRadius;
     public ColorWheel wheel;
     public GameObject picker;
+	public BoxPicker boxPicker;
     public Camera uiCamera;
     private int degree = 20;
     private bool isClicked = false;
@@ -58,6 +59,7 @@ public class ColorPicker : MonoBehaviour
             float y = Mathf.Cos(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
             this.transform.localPosition = new Vector3(x,y,-2);
             gradationMaterial.color = getColor();
+			boxPicker.UpdateColor();
         }
         else
         {
