@@ -31,7 +31,7 @@ void dataVisualization(uint3 id : SV_DispatchThreadID)
     [loop][allow_uav_condition]
     for (uint i = 0; i < axisCount; i++)
     {
-        float3 position = axisBuffer[i].position;
+        float3 position = axisBuffer[i].position * (axisCount - 1);
         float4 color = axisBuffer[i]._color;
         for(int j = 0; j < 10; j++){
             particleBuffer[id.x].position += position * floatBuffer[id.x * 50 + weightBuffer[i * 10 + j].propertyIndex] * weightBuffer[i * 10 + j].weight;
@@ -39,6 +39,6 @@ void dataVisualization(uint3 id : SV_DispatchThreadID)
         }
     }
     
-    particleBuffer[id.x].position = particleBuffer[id.x].position/ axisCount;
+    particleBuffer[id.x].position = particleBuffer[id.x].position / axisCount;
     particleBuffer[id.x]._color = particleBuffer[id.x]._color / axisCount;
 }

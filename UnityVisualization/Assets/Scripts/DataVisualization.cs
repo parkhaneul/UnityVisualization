@@ -31,6 +31,9 @@ public class DataVisualization : MonoBehaviour
     private static bool isChange = false;
     private uint[] args = new uint[5] { 0, 0, 0, 0, 0 };
 
+    private float currentTime = 0;
+    private float stackFPS = 0;
+    private float fps = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,11 +71,23 @@ public class DataVisualization : MonoBehaviour
 
     private void Update()
     {
-        //if (isChange)
-        //{
+        currentTime += Time.deltaTime;
+        if (currentTime > 1.0f)
+        {
+            stackFPS = fps * Time.deltaTime;
+            fps = 0;
+            currentTime = 0;
+        }
+        else
+        {
+            fps += 1 / Time.deltaTime;
+        }
+
+        if (maxParticle < 100000 || isChange)
+        {
             updateBuffer();
-            //isChange = false;
-        //}
+            isChange = false;
+        }
         Graphics.DrawMeshInstancedIndirect(mesh, 0, material, new Bounds(Vector3.zero, new Vector3(100.0f, 100.0f, 100.0f)), argsBuffer);
         // 연산된 데이터에 맞게 다수의 매쉬를 화면에 표현.
     }
@@ -85,7 +100,7 @@ public class DataVisualization : MonoBehaviour
         var axisData = manager.GetAxisDatas();
         var weightData = manager.GetWeights();
         //데이터 받아오기
-        maxAxis = axisData.Length;
+        maxAxis = axisData.Length + 1;
 
         computeShader.SetInt("axisCount", maxAxis);
         //데이터 갯수 설정
@@ -121,9 +136,9 @@ public class DataVisualization : MonoBehaviour
     {
         GUI.Label(new Rect(Screen.width - 200, 5, 200, 30), "Instance Count : " + maxParticle.ToString());
         GUI.Label(new Rect(Screen.width - 200, 25, 200, 30), "expected Data column : " + expectedColumn.ToString());
-        GUI.Label(new Rect(Screen.width - 200, 45, 200, 30), "Axis Count : " + maxAxis.ToString());
+        GUI.Label(new Rect(Screen.width - 200, 45, 200, 30), "Axis Count : " + (maxAxis-1).ToString());
         GUI.Label(new Rect(Screen.width - 200, 65, 200, 30), "Weight Count : " + maxWeight.ToString());
-        //GUI.Label(new Rect(Screen.width - 200, 85, 200, 30), "Frames per Seconds: " + (1/Time.deltaTime).ToString());
+        GUI.Label(new Rect(Screen.width - 200, 85, 200, 30), "Frames per Seconds: " + stackFPS.ToString());
     }
 
     void OnDestroy()

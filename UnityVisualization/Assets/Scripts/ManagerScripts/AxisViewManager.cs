@@ -30,8 +30,8 @@ public class AxisViewManager : MonoBehaviour {
 	private void Start()
 	{
 		AddNewAxis();
-        AddNewAxis();
-        AddNewAxis();
+        //AddNewAxis();
+        //AddNewAxis();
         axisIndex = 0;
 	}
 

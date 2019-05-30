@@ -12,7 +12,7 @@
 	<key>CFBundleExecutable</key>
 	<string>unityVisualization</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Unity Player version 2019.1.2f1 (3e18427e571f). (c) 2019 Unity Technologies ApS. All rights reserved.</string>
+	<string>Unity Player version 2019.1.4f1 (ffa3a7a2dd7d). (c) 2019 Unity Technologies ApS. All rights reserved.</string>
 	<key>CFBundleIconFile</key>
 	<string>PlayerIcon.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -38,7 +38,7 @@
 	<key>NSPrincipalClass</key>
 	<string>PlayerApplication</string>
 	<key>UnityBuildNumber</key>
-	<string>3e18427e571f</string>
+	<string>ffa3a7a2dd7d</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.9.0</string>
 </dict>
