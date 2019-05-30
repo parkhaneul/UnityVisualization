@@ -30,7 +30,9 @@ public class AxisViewManager : MonoBehaviour {
 	private void Start()
 	{
 		AddNewAxis();
-		axisIndex = 0;
+        AddNewAxis();
+        AddNewAxis();
+        axisIndex = 0;
 	}
 
 	public void OnClickPlusButton()
@@ -48,8 +50,8 @@ public class AxisViewManager : MonoBehaviour {
 		Axis newAxis = new Axis();
 		newAxis.vector = new Vector3(0, 0, 0);
 		newAxis.color = new Color(0, 0, 0);
-		newAxis.weights = new List<Weight>();
-		newAxis.name = "new Axis";
+        newAxis.weights = new List<Weight>();
+        newAxis.name = "new Axis";
 		AxisDataManager.Instance().AddAxis(newAxis);
 		GameObject temp = Instantiate(axisModel, axisSpace.transform);
 		GameObject label = Instantiate(NameLabel);

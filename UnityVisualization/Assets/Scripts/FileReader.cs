@@ -51,8 +51,9 @@ public class FileReader : MonoBehaviour {
                     }
                 }
 			}
-            Debug.Log(floatList[1]);
-			file.Close();
+
+            file.Close();
+            dataNormalize();
 		}
 		catch (IOException e)
 		{
@@ -60,4 +61,28 @@ public class FileReader : MonoBehaviour {
 			Debug.Log(e.Message);
 		}
 	}
+
+    void dataNormalize()
+    {
+        for(int i = 0; i < 50; i++) {
+            var min = 0.0f;
+            var max = 0.0f;
+            for (int index = 0; index < dataList.Length; index++) {
+                var temp = floatList[index * 50 + i];
+                if(temp > max)
+                {
+                    max = temp;
+                }
+                if(temp < min)
+                {
+                    min = temp;
+                }
+            }
+
+            for (int index = 0; index < dataList.Length; index++)
+            {
+                floatList[index * 50 + i] = (floatList[index * 50 + i] - min) / (max - min);
+            }
+        }
+    }
 }

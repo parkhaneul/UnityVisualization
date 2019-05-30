@@ -84,11 +84,6 @@ public class DataVisualization : MonoBehaviour
         //데이터 접근
         var axisData = manager.GetAxisDatas();
         var weightData = manager.GetWeights();
-        Debug.Log("index : " + weightData[0].propertyIndex + " | weight : " + weightData[0].weight);
-        Debug.Log("index : " + weightData[10].propertyIndex + " | weight : " + weightData[10].weight);
-        Debug.Log("index : " + weightData[20].propertyIndex + " | weight : " + weightData[20].weight);
-
-
         //데이터 받아오기
         maxAxis = axisData.Length;
 

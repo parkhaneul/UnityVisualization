@@ -45,7 +45,6 @@ public class WeightSettingModel : MonoBehaviour
         Weight temp = axisViewModel.GetWeight(weightIndex);
 		temp.propertyIndex = dropdown.value;
 		axisViewModel.SetWeight(weightIndex, temp);
-		
 	}
 
 	public void OnClickDeleteButton()

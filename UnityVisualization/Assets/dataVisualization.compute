@@ -37,12 +37,8 @@ void dataVisualization(uint3 id : SV_DispatchThreadID)
             particleBuffer[id.x].position += position * floatBuffer[id.x * 50 + weightBuffer[i * 10 + j].propertyIndex] * weightBuffer[i * 10 + j].weight;
             particleBuffer[id.x]._color += color * floatBuffer[id.x * 50 + weightBuffer[i * 10 + j].propertyIndex] * weightBuffer[i * 10 + j].weight;
         }
-        //particleBuffer[id.x].position += position;
     }
     
-        
-    //
-    //particleBuffer[id.x]._color += axisBuffer[i]._color;
-    particleBuffer[id.x].position = particleBuffer[id.x].position / axisCount;
+    particleBuffer[id.x].position = particleBuffer[id.x].position/ axisCount;
     particleBuffer[id.x]._color = particleBuffer[id.x]._color / axisCount;
 }
