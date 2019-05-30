@@ -133,6 +133,7 @@ public class AxisViewManager : MonoBehaviour {
         g.transform.localScale = Vector3.one;
 		g.SetActive(true);
 		g.GetComponent<WeightSettingModel>().SetWeightIndex(propertyControllers[axisIndex].Count);
+        Debug.Log(propertyControllers[axisIndex].Count);
 		g.GetComponent<WeightSettingModel>().axisViewModel = this;
 		propertyControllers[axisIndex].Add(g.GetComponent<WeightSettingModel>());
 		g.GetComponent<WeightSettingModel>().dropdown.value = w.propertyIndex;
@@ -189,7 +190,7 @@ public class AxisViewManager : MonoBehaviour {
 
     public void SetWeight(int index, Weight w)
     {
-		Debug.Log("SetWeight" + index);
+		//Debug.Log("SetWeight" + index);
 		Axis a = GetAxis();
 		a.weights[index] = w;
 		SetAxis(a);
@@ -228,7 +229,7 @@ public class AxisViewManager : MonoBehaviour {
 
     public Weight GetWeight(int index)
     {
-        Debug.Log("Error Point2 : " + index);
+        //Debug.Log("Error Point2 : " + index);
         return GetAxis().weights[index];
     }
 

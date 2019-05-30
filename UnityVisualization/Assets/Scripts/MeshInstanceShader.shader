@@ -17,8 +17,6 @@
             #pragma target 4.5
             
             #include "UnityCG.cginc"
-            #include "UnityLightingCommon.cginc"
-            #include "AutoLight.cginc"
 
             sampler2D _MainTex;
             
@@ -36,7 +34,6 @@
                 float4 pos : SV_POSITION;
                 float2 uv_MainTex : TEXCOORD0;
                 float3 color : TEXCOORD3;
-                SHADOW_COORDS(4)
             };
             
             v2f vert (appdata_full v, uint instanceID : SV_InstanceID)

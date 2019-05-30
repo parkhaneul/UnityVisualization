@@ -71,7 +71,7 @@ public class AxisDataManager{
 
         for (int i = 0; i < sampleSize-1; i++)
         {
-            for (int index = 0; index < Random.Range(1,3); index++)
+            for (int index = 0; index < Random.Range(3,10); index++)
             {
                 data[i * 10 + index].propertyIndex = Random.Range(1, 4);
                 data[i * 10 + index].weight = Random.Range(0.5f, 1.0f);
@@ -85,11 +85,12 @@ public class AxisDataManager{
     {
         Weight[] data = new Weight[axisArray.Count * 10];
 
-        for(int i = 0; i < axisArray.Count-1; i++)
+        for(int i = 0; i < axisArray.Count; i++)
         {
-            for(int index = 0; i < axisArray[i].weights.Count; i++)
+            for(int index = 0; index < axisArray[i].weights.Count; index++)
             {
-                data[i * 10 + index] = axisArray[i].weights[index];
+                data[i * 10 + index].propertyIndex = axisArray[i].weights[index].propertyIndex;
+                data[i * 10 + index].weight = axisArray[i].weights[index].weight;
             }
         }
 

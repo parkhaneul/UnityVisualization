@@ -68,11 +68,11 @@ public class DataVisualization : MonoBehaviour
 
     private void Update()
     {
-        if (isChange)
-        {
+        //if (isChange)
+        //{
             updateBuffer();
-            isChange = false;
-        }
+            //isChange = false;
+        //}
         Graphics.DrawMeshInstancedIndirect(mesh, 0, material, new Bounds(Vector3.zero, new Vector3(100.0f, 100.0f, 100.0f)), argsBuffer);
         // 연산된 데이터에 맞게 다수의 매쉬를 화면에 표현.
     }
@@ -82,9 +82,13 @@ public class DataVisualization : MonoBehaviour
         var manager = AxisDataManager.Instance();
         var floats = FileReader.floatList;
         //데이터 접근
-        var axisData = manager.GetAxisSamples();
-        var weightData = manager.GetSampleWeights();
+        var axisData = manager.GetAxisDatas();
+        var weightData = manager.GetWeights();
         Debug.Log("index : " + weightData[0].propertyIndex + " | weight : " + weightData[0].weight);
+        Debug.Log("index : " + weightData[10].propertyIndex + " | weight : " + weightData[10].weight);
+        Debug.Log("index : " + weightData[20].propertyIndex + " | weight : " + weightData[20].weight);
+
+
         //데이터 받아오기
         maxAxis = axisData.Length;
 
@@ -101,29 +105,6 @@ public class DataVisualization : MonoBehaviour
         computeShader.SetBuffer(mComputeShaderKernelID, "axisBuffer", axisBuffer);
         //연산 쉐이더에 정보 주입
         computeShader.Dispatch(mComputeShaderKernelID, 1024, 1, 1);
-        /*
-        particleBuffer = new ComputeBuffer(maxParticle, particleSize);
-        Particle[] particles = new Particle[maxParticle];
-        for(int i =0; i < maxParticle; i++) // 어떤 파티클이
-        {
-            //particles[i].position.x = floats[i * 50 + 1];
-            //particles[i].position.y = floats[i * 50 + 2];
-            //particles[i].position.z = floats[i * 50 + 3];
-            for (int j = 0; j < maxAxis; j++) // 몇 번째 축의
-            {
-                var position = axisData[j].position;
-                var color = axisData[j]._color;
-
-                for(int x = 0; x < 10; x++) // 몇 번째 가중치를 적용
-                {
-                    particles[i].position += position * floats[i * 50 + weightData[j * 10 + x].propertyIndex] * weightData[j * 10 + x].weight;
-                    particles[i]._color += color;// * floats[j + weightData[j * 10 + x].propertyIndex] * weightData[j * 10 + x].weight;
-                }
-            }
-            particles[i].position = particles[i].position / maxAxis;
-            particles[i]._color = particles[i]._color / maxAxis;
-        }
-        particleBuffer.SetData(particles);*/
 
         if (mesh != null)
         {
