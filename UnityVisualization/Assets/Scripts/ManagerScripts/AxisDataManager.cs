@@ -71,10 +71,10 @@ public class AxisDataManager{
 
         for (int i = 0; i < sampleSize-1; i++)
         {
-            for (int index = 0; index < 1; index++)
+            for (int index = 0; index < Random.Range(1,3); index++)
             {
-                data[i * 10 + index].propertyIndex = i+1;
-                data[i * 10 + index].weight = Random.Range(0.0f, 1.0f);
+                data[i * 10 + index].propertyIndex = Random.Range(1, 4);
+                data[i * 10 + index].weight = Random.Range(0.5f, 1.0f);
             }
         }
 

@@ -1858,7 +1858,7 @@ MonoBehaviour:
   boxPicker: {fileID: 562540919}
   uiCamera: {fileID: 1171176382}
   material: {fileID: 2100000, guid: c1a77d1f6e7c2498989bf090053131eb, type: 2}
-  gradationMaterial: {fileID: 2100000, guid: 135f730c32ab54bd89e14fd07764bcff, type: 2}
+  gradationMaterial: {fileID: 2100000, guid: fbb508b4037f54ae7892c320f7071574, type: 2}
 --- !u!135 &969351286
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3117,7 +3117,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 135f730c32ab54bd89e14fd07764bcff, type: 2}
+  - {fileID: 2100000, guid: fbb508b4037f54ae7892c320f7071574, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
