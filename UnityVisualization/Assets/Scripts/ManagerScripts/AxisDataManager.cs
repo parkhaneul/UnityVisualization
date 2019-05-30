@@ -41,6 +41,14 @@ public class AxisDataManager{
         calculAxis[] data = new calculAxis[sampleSize];
 
         data[0]._color = Color.blue;
+        data[0].position = new Vector3(1,0,0) * 20;
+        data[1]._color = Color.red;
+        data[1].position = new Vector3(0,1,0) * 20;
+        data[2]._color = Color.green;
+        data[2].position = new Vector3(0,0,1) * 20;
+
+        /*
+        data[0]._color = Color.blue;
         data[0].position = new Vector3(Random.Range(-20,20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
         data[1]._color = Color.red;
         data[1].position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
@@ -53,7 +61,7 @@ public class AxisDataManager{
         data[5]._color = Color.yellow;
         data[5].position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
         data[6]._color = Color.white;
-        data[6].position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;
+        data[6].position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20), Random.Range(-20, 20)).normalized * 20;*/
         return data;   
     }
 
@@ -63,10 +71,9 @@ public class AxisDataManager{
 
         for (int i = 0; i < sampleSize-1; i++)
         {
-            for (int index = 0; i < 10; i++)
+            for (int index = 0; index < 1; index++)
             {
-                data[i * 10 + index] = new Weight();
-                data[i * 10 + index].propertyIndex = Random.Range(0, 3);
+                data[i * 10 + index].propertyIndex = i+1;
                 data[i * 10 + index].weight = Random.Range(0.0f, 1.0f);
             }
         }
