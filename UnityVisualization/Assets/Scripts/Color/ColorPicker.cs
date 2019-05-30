@@ -57,7 +57,7 @@ public class ColorPicker : MonoBehaviour
             angle = Mathf.Atan2(vector.x, vector.y);
             float x = Mathf.Sin(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
             float y = Mathf.Cos(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
-            this.transform.localPosition = new Vector3(x+3,y-1,-2);
+            this.transform.localPosition = new Vector3(x,y,-2);
             gradationMaterial.color = getColor();
 			boxPicker.UpdateColor();
         }

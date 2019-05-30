@@ -1787,7 +1787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960435394}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 140, z: -2}
+  m_LocalPosition: {x: 0, y: 150, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 702257192}
@@ -2246,7 +2246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropdown: {fileID: 1563504773}
   InputText: {fileID: 1734380818}
-  propertyController: {fileID: 8136343607382333999, guid: 25044925684c3d94e830c954ebbeb54b,
+  propertyController: {fileID: 3951665687526887695, guid: 25044925684c3d94e830c954ebbeb54b,
     type: 3}
   axisModel: {fileID: 796796566}
   axisSpace: {fileID: 883329333}
@@ -2303,7 +2303,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 2000
   field of view: 100
-  orthographic: 0
+  orthographic: 1
   orthographic size: 200
   m_Depth: 0
   m_CullingMask:

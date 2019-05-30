@@ -54,12 +54,12 @@ public class BoxPicker : MonoBehaviour
         if (isClicked)
         {
             var p = uiCamera.WorldToScreenPoint(picker.transform.position);
-            var vector = (Input.mousePosition - p)/16;
+            var vector = (Input.mousePosition - p);
             var xScale = gradationBox.transform.lossyScale.x;
 			var yScale = gradationBox.transform.lossyScale.z;
 			preX = Mathf.Clamp(vector.x, -xScale * 4, xScale * 4);
 			preY = Mathf.Clamp(vector.y, -yScale * 4, yScale * 4);
-            this.transform.position = gradationBox.transform.position + new Vector3(preX + 3.2f, preY - 1, -2);
+            this.transform.position = gradationBox.transform.position + new Vector3(preX, preY, -2);
 
 			UpdateColor();
         }

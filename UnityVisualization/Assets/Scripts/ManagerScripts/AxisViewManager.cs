@@ -128,10 +128,9 @@ public class AxisViewManager : MonoBehaviour {
 
 	private void AddWeightSettingObject(Weight w)
 	{
-		Debug.Log("AddWeight");
 		GameObject g = Instantiate(propertyController);
 		g.transform.SetParent(this.transform);
-		g.transform.localScale = Vector3.one;
+        g.transform.localScale = Vector3.one;
 		g.SetActive(true);
 		g.GetComponent<WeightSettingModel>().SetWeightIndex(propertyControllers[axisIndex].Count);
 		g.GetComponent<WeightSettingModel>().axisViewModel = this;
@@ -139,8 +138,8 @@ public class AxisViewManager : MonoBehaviour {
 		g.GetComponent<WeightSettingModel>().dropdown.value = w.propertyIndex;
 		g.GetComponent<WeightSettingModel>().slider.value = w.weight;
 		g.GetComponent<WeightSettingModel>().value.text = w.weight.ToString();
-		Debug.Log(axisIndex);
-	}
+        //Debug.Log(axisIndex);
+    }
 
     public void SetAxis(Axis _axis)
     {
