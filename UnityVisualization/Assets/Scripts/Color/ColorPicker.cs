@@ -11,7 +11,7 @@ public class ColorPicker : MonoBehaviour
 	public BoxPicker boxPicker;
     public Camera uiCamera;
     private int degree = 20;
-    private bool isClicked = true;
+    private bool isClicked = false;
     public Material material;
     public Material gradationMaterial;
 
@@ -57,7 +57,7 @@ public class ColorPicker : MonoBehaviour
             angle = Mathf.Atan2(vector.x, vector.y);
             float x = Mathf.Sin(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
             float y = Mathf.Cos(angle) * (wheel.radius + wheel.inCircleRadius) / 2;
-            this.transform.localPosition = new Vector3(x+3,y,-2);
+            this.transform.localPosition = new Vector3(x+3,y-1,-2);
             gradationMaterial.color = getColor();
 			boxPicker.UpdateColor();
         }

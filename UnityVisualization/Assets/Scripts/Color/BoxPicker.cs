@@ -59,7 +59,7 @@ public class BoxPicker : MonoBehaviour
 			var yScale = gradationBox.transform.lossyScale.z;
 			preX = Mathf.Clamp(vector.x, -xScale * 4, xScale * 4);
 			preY = Mathf.Clamp(vector.y, -yScale * 4, yScale * 4);
-            this.transform.position = gradationBox.transform.position + new Vector3(preX + 3.2f, preY + 0.2f, -2);
+            this.transform.position = gradationBox.transform.position + new Vector3(preX + 3.2f, preY - 1, -2);
 
 			UpdateColor();
         }
