@@ -51,15 +51,15 @@ public class BoxPicker : MonoBehaviour
     {
         RaycastHit hit;
         ray = uiCamera.ScreenPointToRay(Input.mousePosition);
-
         if (isClicked)
         {
-			var vector = uiCamera.ScreenToWorldPoint(Input.mousePosition) - picker.transform.position;
-			var xScale = gradationBox.transform.lossyScale.x;
+            var p = uiCamera.WorldToScreenPoint(picker.transform.position);
+            var vector = (Input.mousePosition - p)/16;
+            var xScale = gradationBox.transform.lossyScale.x;
 			var yScale = gradationBox.transform.lossyScale.z;
 			preX = Mathf.Clamp(vector.x, -xScale * 4, xScale * 4);
 			preY = Mathf.Clamp(vector.y, -yScale * 4, yScale * 4);
-			this.transform.position = gradationBox.transform.position + new Vector3(preX, preY, -2);
+            this.transform.position = gradationBox.transform.position + new Vector3(preX + 3.2f, preY + 0.2f, -2);
 
 			UpdateColor();
         }
@@ -67,7 +67,7 @@ public class BoxPicker : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (Physics.Raycast(ray, out hit) && hit.transform.tag == "BoxPicker")
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.transform.tag == "BoxPicker")
                 {
                     isClicked = true;
                 }
