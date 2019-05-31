@@ -14,10 +14,6 @@ public class AxisRepositioner : MonoBehaviour
 
     Ray ray;
 
-    private void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -74,7 +70,7 @@ public class AxisRepositioner : MonoBehaviour
 	
 	void DrawName()
 	{
-		Vector3 namePos = view.WorldToScreenPoint(this.transform.position);
+		Vector3 namePos = view.WorldToScreenPoint(this.transform.position + new Vector3(0, 2, 0));
 		nameLabel.transform.position = namePos;
 	}
 

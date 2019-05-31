@@ -43,7 +43,9 @@ public class ColorPicker : MonoBehaviour
         mesh.uv = uvs;
         GetComponent<MeshRenderer>().material = material;
         mesh.RecalculateNormals();
-    }
+		gradationMaterial.color = Color.red;
+
+	}
 
     void Update()
     {

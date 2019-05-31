@@ -48,8 +48,8 @@ public class AxisViewManager : MonoBehaviour {
 	public void AddNewAxis()
 	{
 		Axis newAxis = new Axis();
-		newAxis.vector = new Vector3(0, 0, 0);
-		newAxis.color = new Color(0, 0, 0);
+		newAxis.vector = new Vector3(10, 0, 0);
+		newAxis.color = Color.white;
         newAxis.weights = new List<Weight>();
         newAxis.name = "new Axis";
 		AxisDataManager.Instance().AddAxis(newAxis);
