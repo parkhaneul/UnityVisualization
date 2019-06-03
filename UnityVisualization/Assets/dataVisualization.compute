@@ -42,3 +42,8 @@ void dataVisualization(uint3 id : SV_DispatchThreadID)
     particleBuffer[id.x].position = particleBuffer[id.x].position / axisCount;
     particleBuffer[id.x]._color = particleBuffer[id.x]._color / axisCount;
 }
+
+void Clustering(uint3 id : SV_DispatchThreadID){
+    [loop][allow_uav_condition]
+    //Clustering TODO
+}

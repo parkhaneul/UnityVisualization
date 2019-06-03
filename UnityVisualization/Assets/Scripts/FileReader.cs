@@ -65,8 +65,8 @@ public class FileReader : MonoBehaviour {
     void dataNormalize()
     {
         for(int i = 0; i < 50; i++) {
-            var min = 0.0f;
-            var max = 0.0f;
+            var min = float.MaxValue;
+            var max = float.MinValue;
             for (int index = 0; index < dataList.Length; index++) {
                 var temp = floatList[index * 50 + i];
                 if(temp > max)

@@ -139,11 +139,15 @@ public class DataVisualization : MonoBehaviour
     void OnGUI()
     {
         GUI.contentColor = Color.black;
-        GUI.Label(new Rect(Screen.width - 200, 5, 200, 30), "Instance Count : " + maxParticle.ToString());
-        GUI.Label(new Rect(Screen.width - 200, 25, 200, 30), "expected Data column : " + expectedColumn.ToString());
-        GUI.Label(new Rect(Screen.width - 200, 45, 200, 30), "Axis Count : " + (maxAxis-1).ToString());
-        GUI.Label(new Rect(Screen.width - 200, 65, 200, 30), "Weight Count : " + maxWeight.ToString());
-        GUI.Label(new Rect(Screen.width - 200, 85, 200, 30), "Frames per Seconds: " + stackFPS.ToString());
+        GUI.Label(new Rect(Screen.width - 240, 5, 220, 30), "Instance Count : " + maxParticle.ToString());
+        GUI.Label(new Rect(Screen.width - 240, 25, 220, 30), "expected Data column : " + expectedColumn.ToString());
+        GUI.Label(new Rect(Screen.width - 240, 45, 220, 30), "Axis Count : " + (maxAxis-1).ToString());
+        GUI.Label(new Rect(Screen.width - 240, 65, 220, 30), "Weight Count : " + maxWeight.ToString());
+        GUI.Label(new Rect(Screen.width - 240, 85, 220, 30), "Frames per Seconds: " + stackFPS.ToString());
+
+        GUI.Label(new Rect(Screen.width - 240, 150, 220, 30), "Alt + Left Drag : Rotate By Center");
+        GUI.Label(new Rect(Screen.width - 240, 170, 220, 30), "Alt + Right Drag : Rotate By Camera");
+        GUI.Label(new Rect(Screen.width - 240, 190, 220, 30), "Alt + Wheel : Zoom");
     }
 
     void OnDestroy()
