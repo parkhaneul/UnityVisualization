@@ -71,6 +71,10 @@ public class DataVisualization : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
         currentTime += Time.deltaTime;
         if (currentTime > 1.0f)
         {
@@ -134,6 +138,7 @@ public class DataVisualization : MonoBehaviour
 
     void OnGUI()
     {
+        GUI.contentColor = Color.black;
         GUI.Label(new Rect(Screen.width - 200, 5, 200, 30), "Instance Count : " + maxParticle.ToString());
         GUI.Label(new Rect(Screen.width - 200, 25, 200, 30), "expected Data column : " + expectedColumn.ToString());
         GUI.Label(new Rect(Screen.width - 200, 45, 200, 30), "Axis Count : " + (maxAxis-1).ToString());
