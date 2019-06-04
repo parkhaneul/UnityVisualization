@@ -1,17 +1,17 @@
 ﻿// Each #kernel tells which function to compile; you can have many kernels
-#pragma kernel DataVisualization
+#pragma kernel dataVisualization
 #pragma kernel Clustering
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
 struct Particle{
     float4 _color;
     float3 position;
-    uint inCluster;
 };
 
 struct Cluster
 {
     float3 position;
+	float3 lastPosition;
     float4 _color;
     uint index;
 };
@@ -30,13 +30,13 @@ struct calculAxis{
 };
 
 RWStructuredBuffer<Particle> particleBuffer;
-RWStructuredBuffer<Cluster> clusterBuffer;
 RWStructuredBuffer<float> floatBuffer;
 RWStructuredBuffer<calculAxis> axisBuffer;
 RWStructuredBuffer<Weight> weightBuffer;
+RWStructuredBuffer<Cluster> clusterBuffer;
 
-[numthreads(512,1,1)]
-void DataVisualization(uint3 id : SV_DispatchThreadID)
+[numthreads(1024,1,1)]
+void dataVisualization(uint3 id : SV_DispatchThreadID)
 {
     [loop][allow_uav_condition]
     for (uint i = 0; i < axisCount; i++)
@@ -61,13 +61,13 @@ void Clustering(uint3 id : SV_DispatchThreadID){
     [loop][allow_uav_condition]
     for(uint i = 0; i < kIndex; i++)
     {
-        if(distance(position, clusterBuffer[i].position) < minimum){
-            minimum = distance(position, clusterBuffer[i].position);
-            index = i;
+		float dist = distance(position, clusterBuffer[i].lastPosition);
+        if(dist < minimum){
+            minimum = dist;
+			index = i;
         }
     }
-    particleBuffer[id.x].inCluster = index;
     particleBuffer[id.x]._color = clusterBuffer[index]._color;
-    clusterBuffer[index].index++;
+	clusterBuffer[index].index++;
     clusterBuffer[index].position += particleBuffer[id.x].position;
 }

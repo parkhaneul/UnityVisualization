@@ -1,8 +1,5 @@
 ﻿Shader "Custom/visualizationShader"
 {
-    Properties
-    {
-    }
     SubShader
     {
         Pass{
@@ -15,10 +12,9 @@
             
             #pragma target 5.0
 
-            struct Data{
+            struct Particle{
                 float4 _color;
                 float3 position;
-                uint inCluster;
             };
             
             struct PS_INPUT {
@@ -26,7 +22,7 @@
                 float4 color : COLOR;
             };
             
-            StructuredBuffer<Data> computeBuffer;
+            StructuredBuffer<Particle> computeBuffer;
             
             PS_INPUT vert(uint vertex_id : SV_VertexID, uint instance_id : SV_InstanceID) {
                 PS_INPUT o = (PS_INPUT)0;

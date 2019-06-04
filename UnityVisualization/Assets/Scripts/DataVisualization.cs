@@ -20,7 +20,7 @@ public class DataVisualization : MonoBehaviour
     private Mesh mesh;
 
     private int maxParticle;
-    private int particleSize = 16 + 12 + 4;
+    private int particleSize = 16 + 12;
 
     private int maxAxis;
     private int axisSize = 12 + 16;
@@ -33,20 +33,24 @@ public class DataVisualization : MonoBehaviour
     private static bool isChange = false;
     private uint[] args = new uint[5] { 0, 0, 0, 0, 0 };
 
-    private int clusterSize = 16 + 12 + 4;
+    private int clusterSize = 16 + 12 + 12 + 4;
     private int maxCluster = 4;
-
+    
     private float currentTime = 0;
     private float stackFPS = 0;
     private float fps = 0;
     // Start is called before the first frame update
-    
+
+    Cluster[] clusters;
+    int times = 0;
+    bool isClustered = false;
+
     void Start()
     {
         mesh = crossQuad();
         // 메시 그리.
-        mComputeShaderKernelID = computeShader.FindKernel("DataVisualization");
-        clusteringKernelID = computeShader.FindKernel("Clustering");
+        mComputeShaderKernelID = computeShader.FindKernel("dataVisualization");
+        //clusteringKernelID = computeShader.FindKernel("Clustering");
         // 컴퓨트 쉐이더 사용 아이디 설정
         argsBuffer = new ComputeBuffer(1, args.Length * sizeof(uint));
         // 매쉬 랜더 버퍼 설정
@@ -96,49 +100,37 @@ public class DataVisualization : MonoBehaviour
 
         if (maxParticle < 100000 || isChange)
         {
-            updateBuffer();
+            if (!isClustered)
+            {
+                updateBuffer();
+            }
             isChange = false;
         }
+        material.SetBuffer("particleBuffer", particleBuffer);
         Graphics.DrawMeshInstancedIndirect(mesh, 0, material, new Bounds(Vector3.zero, new Vector3(100.0f, 100.0f, 100.0f)), argsBuffer);
         // 연산된 데이터에 맞게 다수의 매쉬를 화면에 표현.
     }
-
+    
     public void cluster()
     {
-        var temp = new Particle[maxParticle];
-        clusterBuffer = new ComputeBuffer(maxCluster, clusterSize);
-        particleBuffer.GetData(temp);
-        Cluster[] clusters = new Cluster[maxCluster];
-        Cluster[] tempClusters = new Cluster[maxCluster];
-        Random.seed = 42;
-        for(int i = 0; i < maxCluster; i++)
+        if (!isClustered)
         {
-            var random = Random.Range(0, maxParticle);
-            clusters[i].position = temp[random].position;
-            clusters[i]._color = Color.HSVToRGB(i/maxCluster, 1, 1);
-        }
-        computeShader.SetInt("kIndex", maxCluster);
-        clusterBuffer.SetData(clusters);
-        computeShader.SetBuffer(clusteringKernelID, "clusterBuffer", clusterBuffer);
-
-        var index = 0;
-        do
-        {
-            index = 0;
-            computeShader.Dispatch(clusteringKernelID, 512, 1, 1);
-            for(int i = 0; i < maxCluster; i++)
+            var temp = new Particle[maxParticle];
+            clusterBuffer = new ComputeBuffer(maxCluster, clusterSize);
+            particleBuffer.GetData(temp);
+            clusters = new Cluster[maxCluster];
+            Random.seed = 42;
+            for (int i = 0; i < maxCluster; i++)
             {
-                if(tempClusters[i].position == clusters[i].position/clusters[i].index)
-                {
-                    index++;
-                }
-                else
-                {
-                    tempClusters[i].position = clusters[i].position / clusters[i].index;
-                }
-                clusters[i].index = 0;
+                var random = Random.Range(0, maxParticle);
+                clusters[i].lastPosition = temp[random].position;
+                clusters[i]._color = Color.HSVToRGB(i * 1f / maxCluster, 1, 1);
             }
-        } while (index >= maxCluster);
+            computeShader.SetInt("kIndex", maxCluster);
+
+            isClustered = true;
+            StartCoroutine("clusterCoroutine");
+        }
         /*
          * Random seed init                                                     o
          * 
@@ -152,8 +144,40 @@ public class DataVisualization : MonoBehaviour
          * 
          * partilce[id].color = cluster[partilce[id].index].color   
          * 
-         * https://en.wikipedia.org/wiki/K-means%2B%2B        
-         */
+         * https://en.wikipedia.org/wiki/K-means%2B%2B*/
+    }
+
+    IEnumerator clusterCoroutine()
+    {
+        int index = 0;
+        clusterBuffer.SetData(clusters);
+        computeShader.SetBuffer(clusteringKernelID, "clusterBuffer", clusterBuffer);
+        computeShader.Dispatch(clusteringKernelID, 512, 1, 1);
+        for (int i = 0; i < maxCluster; i++)
+        {
+            var position = clusters[i].position / clusters[i].index;
+            if (clusters[i].lastPosition == position)
+            {
+                index++;
+            }
+            else
+            {
+                clusters[i].lastPosition = position;
+            }
+            clusters[i].position = new Vector3(0, 0, 0);
+            clusters[i].index = 0;
+        }
+        times++;
+        Debug.Log(times + "|" + index + " clustering");
+        if (index >= maxCluster)
+        {
+            isClustered = false;
+        }
+        yield return new WaitForSeconds(0.2f);
+        if (isClustered)
+        {
+            StartCoroutine("clusterCoroutine");
+        }
     }
 
     void updateBuffer() {
@@ -177,7 +201,7 @@ public class DataVisualization : MonoBehaviour
         computeShader.SetBuffer(mComputeShaderKernelID, "weightBuffer", weightBuffer);
         computeShader.SetBuffer(mComputeShaderKernelID, "axisBuffer", axisBuffer);
         //연산 쉐이더에 정보 주입
-        computeShader.Dispatch(mComputeShaderKernelID, 512, 1, 1);
+        computeShader.Dispatch(mComputeShaderKernelID, 1024, 1, 1);
 
         if (mesh != null)
         {
@@ -191,8 +215,6 @@ public class DataVisualization : MonoBehaviour
             args[0] = args[1] = args[2] = args[3] = 0;
         }
         argsBuffer.SetData(args);
-
-        material.SetBuffer("particleBuffer", particleBuffer);
     }
 
     void OnGUI()

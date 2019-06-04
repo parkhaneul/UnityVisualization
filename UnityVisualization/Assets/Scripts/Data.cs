@@ -9,12 +9,12 @@ public struct Data
 {
     Color _color;
     Vector3 position;
-    public uint inCluster;
 }
 
 public struct Cluster
 {
     public Vector3 position;
+    public Vector3 lastPosition;
     public Vector4 _color;
     public uint index;
 }
@@ -23,7 +23,6 @@ public struct Particle
 {
     public Vector4 _color;
     public Vector3 position;
-    public uint inCluster;
 }
 
 /*public struct Data
