@@ -1,6 +1,6 @@
 ﻿// Each #kernel tells which function to compile; you can have many kernels
-#pragma kernel dataVisualization
-
+#pragma kernel DataVisualization
+#pragma kernel Clustering
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
 struct Particle{
@@ -14,9 +14,10 @@ struct Cluster
     float3 position;
     float4 _color;
     uint index;
-}
+};
 
 uint axisCount;
+uint kIndex;
 
 struct Weight{
     int propertyIndex;
@@ -34,8 +35,8 @@ RWStructuredBuffer<float> floatBuffer;
 RWStructuredBuffer<calculAxis> axisBuffer;
 RWStructuredBuffer<Weight> weightBuffer;
 
-[numthreads(1024,1,1)]
-void dataVisualization(uint3 id : SV_DispatchThreadID)
+[numthreads(512,1,1)]
+void DataVisualization(uint3 id : SV_DispatchThreadID)
 {
     [loop][allow_uav_condition]
     for (uint i = 0; i < axisCount; i++)
@@ -52,27 +53,21 @@ void dataVisualization(uint3 id : SV_DispatchThreadID)
     particleBuffer[id.x]._color = particleBuffer[id.x]._color / axisCount;
 }
 
-[numthreads(1024,1,1)]
+[numthreads(512,1,1)]
 void Clustering(uint3 id : SV_DispatchThreadID){
     float3 position = particleBuffer[id.x].position;
-    float min = 100000000000;
+    float minimum = 10000000;
     uint index = 0;
     [loop][allow_uav_condition]
-    for(uint i = 0; i < k; i++)//k is unit
+    for(uint i = 0; i < kIndex; i++)
     {
-        if(distance(position, clusterBuffer[i].position) < min){
-            min = distance(position, clusterBuffer[i].position)
+        if(distance(position, clusterBuffer[i].position) < minimum){
+            minimum = distance(position, clusterBuffer[i].position);
             index = i;
         }
-        //거리를 젠다
     }
     particleBuffer[id.x].inCluster = index;
+    particleBuffer[id.x]._color = clusterBuffer[index]._color;
     clusterBuffer[index].index++;
     clusterBuffer[index].position += particleBuffer[id.x].position;
-}
-
-[numthreads(1024,1,1)]
-void Coloring(uint3 id : SV_DispatchThreadID){
-    uint index = particleBuffer[id.x].inCluster;
-    particleBuffer[id.x]._color = clusterBuffer[index]._color;
 }

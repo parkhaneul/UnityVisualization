@@ -13,6 +13,7 @@ public class DataVisualization : MonoBehaviour
 
     public ComputeShader computeShader; // 연산 쉐이더
     private int mComputeShaderKernelID;
+    private int clusteringKernelID;
 
     public Material material;
     public int radius;
@@ -33,7 +34,7 @@ public class DataVisualization : MonoBehaviour
     private uint[] args = new uint[5] { 0, 0, 0, 0, 0 };
 
     private int clusterSize = 16 + 12 + 4;
-    private int maxCluster;
+    private int maxCluster = 4;
 
     private float currentTime = 0;
     private float stackFPS = 0;
@@ -44,7 +45,8 @@ public class DataVisualization : MonoBehaviour
     {
         mesh = crossQuad();
         // 메시 그리.
-        mComputeShaderKernelID = computeShader.FindKernel("dataVisualization");
+        mComputeShaderKernelID = computeShader.FindKernel("DataVisualization");
+        clusteringKernelID = computeShader.FindKernel("Clustering");
         // 컴퓨트 쉐이더 사용 아이디 설정
         argsBuffer = new ComputeBuffer(1, args.Length * sizeof(uint));
         // 매쉬 랜더 버퍼 설정
@@ -101,25 +103,52 @@ public class DataVisualization : MonoBehaviour
         // 연산된 데이터에 맞게 다수의 매쉬를 화면에 표현.
     }
 
-    private void cluster()
+    public void cluster()
     {
+        var temp = new Particle[maxParticle];
         clusterBuffer = new ComputeBuffer(maxCluster, clusterSize);
+        particleBuffer.GetData(temp);
         Cluster[] clusters = new Cluster[maxCluster];
+        Cluster[] tempClusters = new Cluster[maxCluster];
         Random.seed = 42;
         for(int i = 0; i < maxCluster; i++)
         {
-            var random = Random.Range(0, maxCluster);
+            var random = Random.Range(0, maxParticle);
+            clusters[i].position = temp[random].position;
+            clusters[i]._color = Color.HSVToRGB(i/maxCluster, 1, 1);
         }
+        computeShader.SetInt("kIndex", maxCluster);
+        clusterBuffer.SetData(clusters);
+        computeShader.SetBuffer(clusteringKernelID, "clusterBuffer", clusterBuffer);
+
+        var index = 0;
+        do
+        {
+            index = 0;
+            computeShader.Dispatch(clusteringKernelID, 512, 1, 1);
+            for(int i = 0; i < maxCluster; i++)
+            {
+                if(tempClusters[i].position == clusters[i].position/clusters[i].index)
+                {
+                    index++;
+                }
+                else
+                {
+                    tempClusters[i].position = clusters[i].position / clusters[i].index;
+                }
+                clusters[i].index = 0;
+            }
+        } while (index >= maxCluster);
         /*
          * Random seed init                                                     o
          * 
-         * for 0...k --> cluster = particle[random]                             -
+         * for 0...k --> cluster = particle[random]                             o
          * 
          * do{
          *      distance(particle, cluster)
          *          -- clustering...
          *      cluster repositioning.
-         *  }(while(cluster repositioning i-1 != cluster repositioning i)
+         *  }(while(cluster repositioning i-1 != cluster repositioning i)       o
          * 
          * partilce[id].color = cluster[partilce[id].index].color   
          * 
@@ -136,7 +165,6 @@ public class DataVisualization : MonoBehaviour
         var weightData = manager.GetWeights();
         //데이터 받아오기
         maxAxis = axisData.Length + 1;
-
         computeShader.SetInt("axisCount", maxAxis);
         //데이터 갯수 설정
         axisBuffer = new ComputeBuffer(maxAxis, axisSize);
@@ -149,7 +177,7 @@ public class DataVisualization : MonoBehaviour
         computeShader.SetBuffer(mComputeShaderKernelID, "weightBuffer", weightBuffer);
         computeShader.SetBuffer(mComputeShaderKernelID, "axisBuffer", axisBuffer);
         //연산 쉐이더에 정보 주입
-        computeShader.Dispatch(mComputeShaderKernelID, 1024, 1, 1);
+        computeShader.Dispatch(mComputeShaderKernelID, 512, 1, 1);
 
         if (mesh != null)
         {
@@ -187,7 +215,7 @@ public class DataVisualization : MonoBehaviour
         {
             particleBuffer.Release();
         }
-}
+    }
 
     public void changeAxis()
     {

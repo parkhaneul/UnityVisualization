@@ -32,10 +32,9 @@ public class FileReader : MonoBehaviour {
 
             dataList = new Data[lines.Length - 1];
             floatList = new float[lines.Length * 50];
-            var count = 0;
 
             for (int i = 1; i < lines.Length; i++)
-			{
+            {
                 var temp = Regex.Split(lines[i], ",");
                 var stringCount = 0;
                 for(int index = 0; index < temp.Length; index++)
@@ -50,7 +49,7 @@ public class FileReader : MonoBehaviour {
                         stringCount++;
                     }
                 }
-			}
+			    }
 
             file.Close();
             dataNormalize();

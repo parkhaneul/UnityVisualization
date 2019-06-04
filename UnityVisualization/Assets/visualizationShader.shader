@@ -18,6 +18,7 @@
             struct Data{
                 float4 _color;
                 float3 position;
+                uint inCluster;
             };
             
             struct PS_INPUT {
