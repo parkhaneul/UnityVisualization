@@ -11,10 +11,18 @@ public struct Data
     Vector3 position;
 }
 
+public struct Cluster
+{
+    public Vector3 position;
+    public Vector4 _color;
+    public uint index;
+}
+
 public struct Particle
 {
-    public Vector4 _color;
-    public Vector3 position;
+    Vector4 _color;
+    Vector3 position;
+    uint inCluster;
 }
 
 /*public struct Data

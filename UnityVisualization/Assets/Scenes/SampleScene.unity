@@ -1784,6 +1784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 839371233}
   - component: {fileID: 839371234}
+  - component: {fileID: 839371235}
   m_Layer: 1
   m_Name: Visualization
   m_TagString: Untagged
@@ -1820,6 +1821,18 @@ MonoBehaviour:
   computeShader: {fileID: 7200000, guid: ce30c7c21f1f84676ac8a53cafa8fe39, type: 3}
   material: {fileID: 2100000, guid: 056ad5fd3c2134727bcf988789b64819, type: 2}
   radius: 1
+--- !u!114 &839371235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839371232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3afcfea1917c84dd98e0de51957bf8e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &875433936
 GameObject:
   m_ObjectHideFlags: 0
@@ -3282,7 +3295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3afcfea1917c84dd98e0de51957bf8e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  k: 3
 --- !u!114 &1424449731
 MonoBehaviour:
   m_ObjectHideFlags: 0

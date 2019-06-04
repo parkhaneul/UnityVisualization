@@ -6,7 +6,15 @@
 struct Particle{
     float4 _color;
     float3 position;
+    uint inCluster;
 };
+
+struct Cluster
+{
+    float3 position;
+    float4 _color;
+    uint index;
+}
 
 uint axisCount;
 
@@ -21,6 +29,7 @@ struct calculAxis{
 };
 
 RWStructuredBuffer<Particle> particleBuffer;
+RWStructuredBuffer<Cluster> clusterBuffer;
 RWStructuredBuffer<float> floatBuffer;
 RWStructuredBuffer<calculAxis> axisBuffer;
 RWStructuredBuffer<Weight> weightBuffer;
@@ -43,7 +52,27 @@ void dataVisualization(uint3 id : SV_DispatchThreadID)
     particleBuffer[id.x]._color = particleBuffer[id.x]._color / axisCount;
 }
 
+[numthreads(1024,1,1)]
 void Clustering(uint3 id : SV_DispatchThreadID){
+    float3 position = particleBuffer[id.x].position;
+    float min = 100000000000;
+    uint index = 0;
     [loop][allow_uav_condition]
-    //Clustering TODO
+    for(uint i = 0; i < k; i++)//k is unit
+    {
+        if(distance(position, clusterBuffer[i].position) < min){
+            min = distance(position, clusterBuffer[i].position)
+            index = i;
+        }
+        //거리를 젠다
+    }
+    particleBuffer[id.x].inCluster = index;
+    clusterBuffer[index].index++;
+    clusterBuffer[index].position += particleBuffer[id.x].position;
+}
+
+[numthreads(1024,1,1)]
+void Coloring(uint3 id : SV_DispatchThreadID){
+    uint index = particleBuffer[id.x].inCluster;
+    particleBuffer[id.x]._color = clusterBuffer[index]._color;
 }

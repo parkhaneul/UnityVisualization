@@ -9,6 +9,7 @@ public class DataVisualization : MonoBehaviour
     private ComputeBuffer dataBuffer; // float 데이터 버퍼
     private ComputeBuffer axisBuffer; // 축 데이터 버퍼
     private ComputeBuffer weightBuffer; // 축 연산 데이터 버퍼
+    private ComputeBuffer clusterBuffer; // 군집화 데이터 버퍼
 
     public ComputeShader computeShader; // 연산 쉐이더
     private int mComputeShaderKernelID;
@@ -18,7 +19,7 @@ public class DataVisualization : MonoBehaviour
     private Mesh mesh;
 
     private int maxParticle;
-    private int particleSize = 16 + 12;
+    private int particleSize = 16 + 12 + 4;
 
     private int maxAxis;
     private int axisSize = 12 + 16;
@@ -31,10 +32,14 @@ public class DataVisualization : MonoBehaviour
     private static bool isChange = false;
     private uint[] args = new uint[5] { 0, 0, 0, 0, 0 };
 
+    private int clusterSize = 16 + 12 + 4;
+    private int maxCluster;
+
     private float currentTime = 0;
     private float stackFPS = 0;
     private float fps = 0;
     // Start is called before the first frame update
+    
     void Start()
     {
         mesh = crossQuad();
@@ -94,6 +99,32 @@ public class DataVisualization : MonoBehaviour
         }
         Graphics.DrawMeshInstancedIndirect(mesh, 0, material, new Bounds(Vector3.zero, new Vector3(100.0f, 100.0f, 100.0f)), argsBuffer);
         // 연산된 데이터에 맞게 다수의 매쉬를 화면에 표현.
+    }
+
+    private void cluster()
+    {
+        clusterBuffer = new ComputeBuffer(maxCluster, clusterSize);
+        Cluster[] clusters = new Cluster[maxCluster];
+        Random.seed = 42;
+        for(int i = 0; i < maxCluster; i++)
+        {
+            var random = Random.Range(0, maxCluster);
+        }
+        /*
+         * Random seed init                                                     o
+         * 
+         * for 0...k --> cluster = particle[random]                             -
+         * 
+         * do{
+         *      distance(particle, cluster)
+         *          -- clustering...
+         *      cluster repositioning.
+         *  }(while(cluster repositioning i-1 != cluster repositioning i)
+         * 
+         * partilce[id].color = cluster[partilce[id].index].color   
+         * 
+         * https://en.wikipedia.org/wiki/K-means%2B%2B        
+         */
     }
 
     void updateBuffer() {
