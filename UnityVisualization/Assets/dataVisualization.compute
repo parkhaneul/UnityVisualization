@@ -1,6 +1,6 @@
 ﻿// Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel dataVisualization
-#pragma kernel Clustering
+#pragma kernel clustering
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
 struct Particle{
@@ -8,12 +8,11 @@ struct Particle{
     float3 position;
 };
 
-struct Cluster
-{
-    float3 position;
-	float3 lastPosition;
-    float4 _color;
-    uint index;
+struct Cluster{
+    float3 position; // 12
+	float3 lastPosition; // 12
+    float4 _color; // 16
+    uint index; // 4
 };
 
 uint axisCount;
@@ -35,7 +34,7 @@ RWStructuredBuffer<calculAxis> axisBuffer;
 RWStructuredBuffer<Weight> weightBuffer;
 RWStructuredBuffer<Cluster> clusterBuffer;
 
-[numthreads(1024,1,1)]
+[numthreads(512,1,1)]
 void dataVisualization(uint3 id : SV_DispatchThreadID)
 {
     [loop][allow_uav_condition]
@@ -48,26 +47,25 @@ void dataVisualization(uint3 id : SV_DispatchThreadID)
             particleBuffer[id.x]._color += color * floatBuffer[id.x * 50 + weightBuffer[i * 10 + j].propertyIndex] * weightBuffer[i * 10 + j].weight;
         }
     }
-    
     particleBuffer[id.x].position = particleBuffer[id.x].position / axisCount;
     particleBuffer[id.x]._color = particleBuffer[id.x]._color / axisCount;
 }
 
 [numthreads(512,1,1)]
-void Clustering(uint3 id : SV_DispatchThreadID){
+void clustering(uint3 id : SV_DispatchThreadID){
     float3 position = particleBuffer[id.x].position;
-    float minimum = 10000000;
+    float minimum = 1000000;
     uint index = 0;
+    
     [loop][allow_uav_condition]
-    for(uint i = 0; i < kIndex; i++)
-    {
-		float dist = distance(position, clusterBuffer[i].lastPosition);
+    for(uint i = 0; i < kIndex; i++){
+        float dist = distance(position, clusterBuffer[i].lastPosition);
         if(dist < minimum){
             minimum = dist;
-			index = i;
+            index = i;
         }
     }
     particleBuffer[id.x]._color = clusterBuffer[index]._color;
-	clusterBuffer[index].index++;
+    clusterBuffer[index].index++;
     clusterBuffer[index].position += particleBuffer[id.x].position;
 }
