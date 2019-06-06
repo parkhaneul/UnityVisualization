@@ -24,8 +24,8 @@ public struct Particle
     public Vector4 _color;
     public Vector3 position;
 }
-
-/*public struct Data
+/*
+public struct Data
 {
     //public string[] strData;
     public float[] floatData;
@@ -46,7 +46,7 @@ public struct Particle
             {
                 floatData[floatIndex] = f;
                 floatIndex++;
-            }/*
+            }
             else
             {
                 strData[strIndex] = temp[i];

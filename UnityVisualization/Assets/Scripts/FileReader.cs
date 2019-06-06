@@ -13,6 +13,7 @@ public class FileReader : MonoBehaviour {
     static MetaData meta;
     public static Data[] dataList;
     public static float[] floatList;
+    public static float[] notNormalList;
 
 	private string filePath = "Assets/Resources/";
     //경로에 파일 넣으시고 파일 이름 .csv dataName에 명시해주세요.
@@ -31,6 +32,7 @@ public class FileReader : MonoBehaviour {
             meta = new MetaData(lines[1]);
 
             dataList = new Data[lines.Length - 1];
+            notNormalList = new float[lines.Length * 50];
             floatList = new float[lines.Length * 50];
 
             for (int i = 1; i < lines.Length; i++)
@@ -42,6 +44,7 @@ public class FileReader : MonoBehaviour {
                     string value = temp[index].TrimStart('\"').TrimEnd('\"').Replace("\\", "");
                     if (float.TryParse(value,out f))
                     {
+                        notNormalList[(i - 1) * 50 + index - stringCount] = f;
                         floatList[(i - 1) * 50 + index - stringCount] = f;
                     }
                     else

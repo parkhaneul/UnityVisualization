@@ -162,12 +162,11 @@ public class DataVisualization : MonoBehaviour
         for(int i = 0; i < maxCluster; i++)
         {
             var position = clusters[i].position;
-            Debug.Log(position);
             if (clusters[i].index > 0)
             {
                 position /= clusters[i].index;
             }
-            if (Vector3.Distance(clusters[i].lastPosition,position) <= 0.05f)
+            if (Vector3.Distance(clusters[i].lastPosition,position) <= 0.1f)
             {
                 index++;
             }
@@ -240,22 +239,23 @@ public class DataVisualization : MonoBehaviour
         GUI.Label(new Rect(Screen.width - 240, 170, 220, 30), "Alt + Right Drag : Rotate By Camera");
         GUI.Label(new Rect(Screen.width - 240, 190, 220, 30), "Alt + Wheel : Zoom");
 
-        /*
+
         if (isClustered)
         {
-            for(int i = 1; i < maxCluster; i++)
+            for(int i = 0; i < maxCluster; i++)
             {
                 GUI.contentColor = clusters[i]._color;
-                GUI.Label(new Rect(Screen.width - 240, 220 + 60 * i, 220, 60), "Means \n" + getMeans(i));
+                var height = MetaData.floatArray.Length;
+                GUI.Label(new Rect(Screen.width - 240, 220 + (height * 20) * i, 220, height * 20), "Means \n" + getMeans(i));
             }
-        }*/
+        }
     }
-    /*
+
     string getMeans(int index)
     {
         var returnValue = "";
         var particles = new Particle[maxParticle];
-        var floats = FileReader.floatList;
+        var floats = FileReader.notNormalList;
         clusterBuffer.GetData(clusters);
         particleBuffer.GetData(particles);
 
@@ -273,11 +273,11 @@ public class DataVisualization : MonoBehaviour
                 }
             }
             means = means / value;
-            temp += " : " + means.ToString() + ", ";
+            temp += " : " + means.ToString() + "\n";
             returnValue += temp;
         }
         return returnValue;
-    }*/
+    }
 
     void OnDestroy()
     {
