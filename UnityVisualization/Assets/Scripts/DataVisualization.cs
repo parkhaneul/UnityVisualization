@@ -44,6 +44,7 @@ public class DataVisualization : MonoBehaviour
     Cluster[] clusters;
     int times = 0;
     bool isClustered = false;
+    bool endClustered = false;
 
     void Start()
     {
@@ -115,6 +116,7 @@ public class DataVisualization : MonoBehaviour
     {
         if (!isClustered)
         {
+            endClustered = false;
             var temp = new Particle[maxParticle];
             clusterBuffer = new ComputeBuffer(maxCluster, clusterSize);
             particleBuffer.GetData(temp);
@@ -166,7 +168,7 @@ public class DataVisualization : MonoBehaviour
             {
                 position /= clusters[i].index;
             }
-            if (Vector3.Distance(clusters[i].lastPosition,position) <= 0.1f)
+            if (Vector3.Distance(clusters[i].lastPosition,position) <= 0.05f)
             {
                 index++;
             }
@@ -185,6 +187,7 @@ public class DataVisualization : MonoBehaviour
             StartCoroutine("clusterCoroutine");
         }
         else {
+            endClustered = true;
             Debug.Log("Clustering end...");
         }
     }
@@ -240,13 +243,13 @@ public class DataVisualization : MonoBehaviour
         GUI.Label(new Rect(Screen.width - 240, 190, 220, 30), "Alt + Wheel : Zoom");
 
 
-        if (isClustered)
+        if (endClustered)
         {
-            for(int i = 0; i < maxCluster; i++)
+            for(int i = 1; i < maxCluster; i++)
             {
                 GUI.contentColor = clusters[i]._color;
                 var height = MetaData.floatArray.Length;
-                GUI.Label(new Rect(Screen.width - 240, 220 + (height * 20) * i, 220, height * 20), "Means \n" + getMeans(i));
+                GUI.Label(new Rect(Screen.width - 240, 220 + (height * 20) * (i-1), 220, height * 20), "Means \n" + getMeans(i));
             }
         }
     }
