@@ -116,19 +116,20 @@ public class DataVisualization : MonoBehaviour
     {
         if (!isClustered)
         {
+            var kSize = maxCluster + 1;
             endClustered = false;
             var temp = new Particle[maxParticle];
-            clusterBuffer = new ComputeBuffer(maxCluster, clusterSize);
+            clusterBuffer = new ComputeBuffer(kSize, clusterSize);
             particleBuffer.GetData(temp);
-            clusters = new Cluster[maxCluster];
+            clusters = new Cluster[kSize];
             Random.seed = 1023;
-            for (int i = 0; i < maxCluster; i++)
+            for (int i = 0; i < kSize; i++)
             {
                 var random = Random.Range(0, maxParticle);
                 clusters[i].lastPosition = temp[random].position;
-                clusters[i]._color = Color.HSVToRGB(i * 1.0f / maxCluster, 1, 1);
+                clusters[i]._color = Color.HSVToRGB(i * 1.0f / kSize, 1, 1);
             }
-            computeShader.SetInt("kIndex", maxCluster);
+            computeShader.SetInt("kIndex", maxCluster+1);
             computeShader.SetBuffer(clusteringKernelID, "particleBuffer", particleBuffer);
 
             isClustered = true;
@@ -168,7 +169,7 @@ public class DataVisualization : MonoBehaviour
             {
                 position /= clusters[i].index;
             }
-            if (Vector3.Distance(clusters[i].lastPosition,position) <= 0.05f)
+            if (Vector3.Distance(clusters[i].lastPosition,position) <= 0.1f)
             {
                 index++;
             }
@@ -189,6 +190,7 @@ public class DataVisualization : MonoBehaviour
         else {
             endClustered = true;
             Debug.Log("Clustering end...");
+            times = 0;
         }
     }
 
@@ -245,7 +247,7 @@ public class DataVisualization : MonoBehaviour
 
         if (endClustered)
         {
-            for(int i = 1; i < maxCluster; i++)
+            for(int i = 1; i < maxCluster+1; i++)
             {
                 GUI.contentColor = clusters[i]._color;
                 var height = MetaData.floatArray.Length;
@@ -354,5 +356,19 @@ public class DataVisualization : MonoBehaviour
         mesh.RecalculateNormals();
 
         return mesh;
+    }
+
+    public void setMaxCluster(string value)
+    {
+        int returnValue = 0;
+        if(int.TryParse(value, out returnValue))
+        {
+            maxCluster = returnValue;
+        }
+        else
+        {
+            maxCluster = 0;
+        }
+        Debug.Log(value);
     }
 }
