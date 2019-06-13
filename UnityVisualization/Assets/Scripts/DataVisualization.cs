@@ -127,7 +127,9 @@ public class DataVisualization : MonoBehaviour
             {
                 var random = Random.Range(0, maxParticle);
                 clusters[i].lastPosition = temp[random].position;
-                clusters[i]._color = Color.HSVToRGB(i * 1.0f / kSize, 1, 1);
+                var s = Random.Range(0.5f, 0.8f);
+                var v = Random.Range(0.5f, 0.8f);
+                clusters[i]._color = Color.HSVToRGB(i * 1.0f / kSize, s, v);
             }
             computeShader.SetInt("kIndex", maxCluster+1);
             computeShader.SetBuffer(clusteringKernelID, "particleBuffer", particleBuffer);
