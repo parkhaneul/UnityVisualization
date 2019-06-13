@@ -135,7 +135,7 @@ public class AxisViewManager : MonoBehaviour {
         g.transform.localScale = Vector3.one;
 		g.SetActive(true);
 		g.GetComponent<WeightSettingModel>().SetWeightIndex(propertyControllers[axisIndex].Count);
-        Debug.Log(propertyControllers[axisIndex].Count);
+        //Debug.Log(propertyControllers[axisIndex].Count);
 		g.GetComponent<WeightSettingModel>().axisViewModel = this;
 		propertyControllers[axisIndex].Add(g.GetComponent<WeightSettingModel>());
 		g.GetComponent<WeightSettingModel>().dropdown.value = w.propertyIndex;
